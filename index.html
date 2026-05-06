@@ -638,33 +638,41 @@
     max-width: 430px;
     background: var(--roo-white);
     border-top: 1px solid var(--roo-grey-100);
-    padding: 12px 16px;
+    padding: 10px 16px 12px;
     z-index: 200;
     box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
   }
 
+  .demo-switcher__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .demo-switcher__label {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 600;
     color: var(--roo-grey-500);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 8px;
+    width: 62px;
+    flex-shrink: 0;
   }
 
-  .demo-switcher__buttons { display: flex; gap: 8px; }
+  .demo-switcher__buttons { display: flex; gap: 6px; flex: 1; }
 
   .demo-switcher__btn {
     flex: 1;
-    padding: 10px 8px;
-    border: 2px solid var(--roo-grey-100);
-    border-radius: var(--roo-radius-sm);
+    padding: 7px 4px;
+    border: 1.5px solid var(--roo-grey-100);
+    border-radius: 6px;
     background: var(--roo-white);
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: var(--roo-grey-700);
     cursor: pointer;
     text-align: center;
+    white-space: nowrap;
   }
 
   .demo-switcher__btn--active {
@@ -673,7 +681,7 @@
     background: #F0FFFE;
   }
 
-  .content-spacer { height: 80px; }
+  .content-spacer { height: 110px; }
 </style>
 </head>
 <body>
@@ -742,18 +750,26 @@
 
 <!-- Demo Switcher -->
 <div class="demo-switcher">
-  <div class="demo-switcher__label">Demo: Switch rider tier</div>
-  <div class="demo-switcher__buttons">
-    <button class="demo-switcher__btn" onclick="setScenario('new')">New</button>
-    <button class="demo-switcher__btn" onclick="setScenario('bronze')">Bronze</button>
-    <button class="demo-switcher__btn" onclick="setScenario('silver')">Silver</button>
-    <button class="demo-switcher__btn" onclick="setScenario('gold')">Gold</button>
+  <div class="demo-switcher__row">
+    <div class="demo-switcher__label">Prototype</div>
+    <div class="demo-switcher__buttons">
+      <button class="demo-switcher__btn demo-switcher__btn--active" data-mode="full" onclick="setMode('full')">Full Product</button>
+      <button class="demo-switcher__btn" data-mode="pilot" onclick="setMode('pilot')">Pilot MVP</button>
+    </div>
+  </div>
+  <div class="demo-switcher__row" style="margin-top:8px;">
+    <div class="demo-switcher__label">Rider tier</div>
+    <div class="demo-switcher__buttons">
+      <button class="demo-switcher__btn" data-scenario="new" onclick="setScenario('new')">New</button>
+      <button class="demo-switcher__btn" data-scenario="bronze" onclick="setScenario('bronze')">Bronze</button>
+      <button class="demo-switcher__btn" data-scenario="silver" onclick="setScenario('silver')">Silver</button>
+      <button class="demo-switcher__btn" data-scenario="gold" onclick="setScenario('gold')">Gold</button>
+    </div>
   </div>
 </div>
 
 <script>
 const TIERS = ['base', 'bronze', 'silver', 'gold'];
-const TIER_THRESHOLDS = { base: 0, bronze: 100, silver: 250, gold: 500 };
 const TIER_COLORS = {
   base: { dot: '#8A8F8F' },
   bronze: { dot: '#C17F4E' },
@@ -761,24 +777,49 @@ const TIER_COLORS = {
   gold: { dot: '#D4A853' },
 };
 
-const SCENARIOS = {
-  new: {
-    points: 75, totalOrders: 42, ar: 78, superPeak: 8, neverDelivered: 1,
-    breakdown: { arPts: 0, arLabel: '78%', volumePts: 42, peakPts: 0, peakLabel: '8 orders', qualityPts: 0, qualityLabel: '1 incident' }
+const CONFIGS = {
+  full: {
+    label: 'Full Product',
+    thresholds: { base: 0, bronze: 100, silver: 250, gold: 500 },
+    maxPts: 600,
+    scenarios: {
+      new:    { points: 75,  totalOrders: 42,  ar: 78, superPeak: 8,  breakdown: { arPts: 0,  arLabel: '78%', volumePts: 42,  peakPts: 0,  peakLabel: '8 orders',  qualityPts: 0,  qualityLabel: '1 incident' } },
+      bronze: { points: 155, totalOrders: 80,  ar: 86, superPeak: 22, breakdown: { arPts: 30, arLabel: '86%', volumePts: 80,  peakPts: 15, peakLabel: '22 orders', qualityPts: 25, qualityLabel: 'Clean record' } },
+      silver: { points: 325, totalOrders: 200, ar: 94, superPeak: 35, breakdown: { arPts: 60, arLabel: '94%', volumePts: 200, peakPts: 40, peakLabel: '35 orders', qualityPts: 25, qualityLabel: 'Clean record' } },
+      gold:   { points: 525, totalOrders: 400, ar: 96, superPeak: 42, breakdown: { arPts: 60, arLabel: '96%', volumePts: 400, peakPts: 40, peakLabel: '42 orders', qualityPts: 25, qualityLabel: 'Clean record' } },
+    },
+    breakdownRows: (s, bIcon) => {
+      const b = s.breakdown;
+      return [
+        { icon: bIcon('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>', '#00CCBC'), bg: '#E6FAF8', label: 'Acceptance Rate', sub: b.arLabel, pts: b.arPts, max: '60 pts max' },
+        { icon: bIcon('<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>', '#E8890C'), bg: '#FFF4E6', label: 'Orders Delivered', sub: `${s.totalOrders} orders × 1 pt`, pts: b.volumePts, max: '' },
+        { icon: bIcon('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', '#E84C3D'), bg: '#FFF0F0', label: 'Super Peak', sub: b.peakLabel + ' in peak', pts: b.peakPts, max: '40 pts max' },
+        { icon: bIcon('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>', '#43A047'), bg: '#E8F5E9', label: 'Quality', sub: b.qualityLabel, pts: b.qualityPts, max: '25 pts max' },
+      ];
+    },
   },
-  bronze: {
-    points: 155, totalOrders: 80, ar: 86, superPeak: 22, neverDelivered: 0,
-    breakdown: { arPts: 30, arLabel: '86%', volumePts: 80, peakPts: 15, peakLabel: '22 orders', qualityPts: 25, qualityLabel: 'Clean record' }
-  },
-  silver: {
-    points: 325, totalOrders: 200, ar: 94, superPeak: 35, neverDelivered: 0,
-    breakdown: { arPts: 60, arLabel: '94%', volumePts: 200, peakPts: 40, peakLabel: '35 orders', qualityPts: 25, qualityLabel: 'Clean record' }
-  },
-  gold: {
-    points: 525, totalOrders: 400, ar: 96, superPeak: 42, neverDelivered: 0,
-    breakdown: { arPts: 60, arLabel: '96%', volumePts: 400, peakPts: 40, peakLabel: '42 orders', qualityPts: 25, qualityLabel: 'Clean record' }
+  pilot: {
+    label: 'Pilot MVP',
+    thresholds: { base: 0, bronze: 1000, silver: 2500, gold: 5000 },
+    maxPts: 6000,
+    scenarios: {
+      new:    { points: 620,  totalOrders: 42,  ar: 48, superPeak: 8,  breakdown: { arPts: 0,   arLabel: '48% — below 50%', volumePts: 420,  peakPts: 0,   peakLabel: '8 orders' } },
+      bronze: { points: 1700, totalOrders: 80,  ar: 62, superPeak: 22, breakdown: { arPts: 900, arLabel: '62% — above 50%', volumePts: 800,  peakPts: 0,   peakLabel: '22 orders' } },
+      silver: { points: 3400, totalOrders: 200, ar: 71, superPeak: 35, breakdown: { arPts: 900, arLabel: '71% — above 50%', volumePts: 2000, peakPts: 500, peakLabel: '35 orders' } },
+      gold:   { points: 5820, totalOrders: 400, ar: 83, superPeak: 42, breakdown: { arPts: 900, arLabel: '83% — above 50%', volumePts: 4000, peakPts: 500, peakLabel: '42 orders' } },
+    },
+    breakdownRows: (s, bIcon) => {
+      const b = s.breakdown;
+      return [
+        { icon: bIcon('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>', '#00CCBC'), bg: '#E6FAF8', label: 'Reliability', sub: b.arLabel, pts: b.arPts, max: '900 pts · AR > 50%' },
+        { icon: bIcon('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', '#E84C3D'), bg: '#FFF0F0', label: 'Consistency', sub: b.peakLabel + ' in Super Peak', pts: b.peakPts, max: '500 pts · 30+ orders' },
+        { icon: bIcon('<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>', '#E8890C'), bg: '#FFF4E6', label: 'Volume', sub: `${s.totalOrders} orders × 10 pts`, pts: b.volumePts, max: '' },
+      ];
+    },
   },
 };
+
+let activeMode = 'full';
 
 const SVG_ICONS = {
   shirt:     `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>`,
@@ -794,9 +835,11 @@ const SVG_ICONS = {
   eye:       `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
   phone:     `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
   rocket:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 3 0 3 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-3 0-3"/></svg>`,
+  gym:       `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5L17.5 17.5M6.5 17.5L17.5 6.5"/><rect x="2" y="8" width="3" height="8" rx="1"/><rect x="19" y="8" width="3" height="8" rx="1"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`,
+  sim:       `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><rect x="8" y="10" width="8" height="8" rx="1"/><line x1="12" y1="10" x2="12" y2="18"/><line x1="8" y1="14" x2="16" y2="14"/></svg>`,
 };
 
-const PERKS = [
+const PERKS_FULL = [
   { id: 'kit-store', name: 'Kit Store', detail: 'Standard discounts on Deliveroo kit', icon: SVG_ICONS.shirt, tier: 'base', category: 'Kit' },
   { id: 'perks-hub', name: 'Perks Hub Access', detail: 'Browse all available rider perks', icon: SVG_ICONS.grid, tier: 'base', category: 'Platform' },
   { id: 'fuel-bronze', name: 'Shell Fuel Cashback', detail: '1–3% cashback on fuel purchases', icon: SVG_ICONS.fuel, tier: 'bronze', category: 'Fuel' },
@@ -815,10 +858,28 @@ const PERKS = [
   { id: 'dispatch', name: 'Dispatch Priority', detail: 'Priority order assignment during peak', icon: SVG_ICONS.rocket, tier: 'gold', category: 'Dispatch' },
 ];
 
+const PERKS_PILOT = [
+  { id: 'kit-store', name: 'Kit Store', detail: 'Standard discounts on Deliveroo kit', icon: SVG_ICONS.shirt, tier: 'base', category: 'Kit' },
+  { id: 'perks-hub', name: 'Perks Hub Access', detail: 'Browse all available rider perks', icon: SVG_ICONS.grid, tier: 'base', category: 'Platform' },
+  { id: 'fuel-base', name: 'Shell Fuel Cashback', detail: 'Standard cashback on fuel purchases', icon: SVG_ICONS.fuel, tier: 'base', category: 'Fuel' },
+  { id: 'shell-app', name: 'Shell Service App', detail: 'Free access to Shell service tools', icon: SVG_ICONS.wrench, tier: 'base', category: 'Fuel' },
+  { id: 'vue', name: 'Vue Cinema', detail: 'Up to 35% off cinema tickets', icon: SVG_ICONS.film, tier: 'bronze', category: 'Leisure' },
+  { id: 'puregym', name: 'PureGym Discount', detail: 'Discounted PureGym membership', icon: SVG_ICONS.gym, tier: 'bronze', category: 'Fitness' },
+  { id: 'kit-voucher', name: 'Kit Store Vouchers', detail: 'Vouchers for Deliveroo kit store', icon: SVG_ICONS.shirt, tier: 'silver', category: 'Kit' },
+  { id: 'pension', name: 'Pension Bonus', detail: 'Bonus contribution + discounted management fee', icon: SVG_ICONS.piggy, tier: 'silver', category: 'Money' },
+  { id: 'fuel-gold', name: 'Shell Fuel Cashback+', detail: 'Enhanced cashback on fuel purchases', icon: SVG_ICONS.fuel, tier: 'gold', category: 'Fuel' },
+  { id: 'esim', name: 'Free eSIM', detail: 'Free data eSIM bundle', icon: SVG_ICONS.sim, tier: 'gold', category: 'Tech' },
+];
+
+function getPerks() { return activeMode === 'pilot' ? PERKS_PILOT : PERKS_FULL; }
+
+function cfg() { return CONFIGS[activeMode]; }
+
 function getTier(points) {
-  if (points >= 500) return 'gold';
-  if (points >= 250) return 'silver';
-  if (points >= 100) return 'bronze';
+  const t = cfg().thresholds;
+  if (points >= t.gold) return 'gold';
+  if (points >= t.silver) return 'silver';
+  if (points >= t.bronze) return 'bronze';
   return 'base';
 }
 
@@ -836,8 +897,8 @@ function daysUntilReset() {
   return Math.ceil((new Date(now.getFullYear(), now.getMonth() + 1, 1) - now) / 86400000);
 }
 
-function progressPercent(points) { return Math.min((points / 600) * 100, 100); }
-function markerPosition(threshold) { return (threshold / 600) * 100; }
+function progressPercent(points) { return Math.min((points / cfg().maxPts) * 100, 100); }
+function markerPosition(threshold) { return (threshold / cfg().maxPts) * 100; }
 
 let currentScenario = 'bronze';
 let currentPage = 'perks';
@@ -900,12 +961,20 @@ function renderPage() {
 }
 
 function renderPerksPage() {
-  const s = SCENARIOS[currentScenario];
+  const c = cfg();
+  const s = c.scenarios[currentScenario];
   const tier = getTier(s.points);
   const next = getNextTier(tier);
-  const pointsToNext = next ? TIER_THRESHOLDS[next] - s.points : 0;
+  const pointsToNext = next ? c.thresholds[next] - s.points : 0;
   const days = daysUntilReset();
+  const th = c.thresholds;
   if (!activeTab) activeTab = tier;
+
+  const markers = [
+    { val: th.bronze, label: th.bronze.toLocaleString() },
+    { val: th.silver, label: th.silver.toLocaleString() },
+    { val: th.gold, label: th.gold.toLocaleString() },
+  ];
 
   const main = document.getElementById('mainContent');
   main.innerHTML = `
@@ -921,7 +990,7 @@ function renderPerksPage() {
           <div class="tier-header__tier-name">
             ${getTierLabel(tier)}
           </div>
-          <div class="tier-header__points"><strong>${s.points}</strong> pts</div>
+          <div class="tier-header__points"><strong>${s.points.toLocaleString()}</strong> pts</div>
         </div>
 
         <div class="progress-container">
@@ -929,14 +998,12 @@ function renderPerksPage() {
             <div class="progress-bar__fill" style="width: 0%"></div>
           </div>
           <div class="progress-markers">
-            <div class="progress-marker" style="left:${markerPosition(100)}%"><div class="progress-marker__dot ${s.points>=100?'progress-marker__dot--reached':''}"></div><div class="progress-marker__label">100</div></div>
-            <div class="progress-marker" style="left:${markerPosition(250)}%"><div class="progress-marker__dot ${s.points>=250?'progress-marker__dot--reached':''}"></div><div class="progress-marker__label">250</div></div>
-            <div class="progress-marker" style="left:${markerPosition(500)}%"><div class="progress-marker__dot ${s.points>=500?'progress-marker__dot--reached':''}"></div><div class="progress-marker__label">500</div></div>
+            ${markers.map(m => `<div class="progress-marker" style="left:${markerPosition(m.val)}%"><div class="progress-marker__dot ${s.points>=m.val?'progress-marker__dot--reached':''}"></div><div class="progress-marker__label">${m.label}</div></div>`).join('')}
           </div>
         </div>
 
         <div class="tier-header__footer">
-          ${next ? `<div class="tier-header__next"><strong>${pointsToNext} pts</strong> to ${getTierLabel(next)}</div>` : '<div class="tier-header__next" style="color:var(--roo-white);">You\'ve reached the top tier</div>'}
+          ${next ? `<div class="tier-header__next"><strong>${pointsToNext.toLocaleString()} pts</strong> to ${getTierLabel(next)}</div>` : '<div class="tier-header__next" style="color:var(--roo-white);">You\'ve reached the top tier</div>'}
           <div class="month-reset">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
             Resets in ${days} days
@@ -974,7 +1041,7 @@ function renderPerksPage() {
 
   const breakdownBody = document.getElementById('breakdownBody');
   if (breakdownBody) {
-    breakdownBody.innerHTML = renderBreakdownRows(s);
+    breakdownBody.innerHTML = renderBreakdownRows(c.scenarios[currentScenario]);
     breakdownBody.style.display = breakdownOpen ? 'block' : 'none';
   }
   const chevron = document.getElementById('breakdownChevron');
@@ -992,15 +1059,9 @@ function toggleBreakdown() {
 }
 
 function renderBreakdownRows(s) {
-  const b = s.breakdown;
   const bIcon = (d, color) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 
-  const rows = [
-    { icon: bIcon('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>', '#00CCBC'), bg: '#E6FAF8', label: 'Acceptance Rate', sub: b.arLabel, pts: b.arPts, max: '60 pts max' },
-    { icon: bIcon('<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>', '#E8890C'), bg: '#FFF4E6', label: 'Orders Delivered', sub: `${s.totalOrders} orders × 1 pt`, pts: b.volumePts, max: '' },
-    { icon: bIcon('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', '#E84C3D'), bg: '#FFF0F0', label: 'Super Peak', sub: b.peakLabel + ' in peak', pts: b.peakPts, max: '40 pts max' },
-    { icon: bIcon('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>', '#43A047'), bg: '#E8F5E9', label: 'Quality', sub: b.qualityLabel, pts: b.qualityPts, max: '25 pts max' },
-  ];
+  const rows = cfg().breakdownRows(s, bIcon);
 
   return rows.map(r => `
     <div class="points-breakdown__row">
@@ -1032,10 +1093,10 @@ function setActiveTab(tier) {
 }
 
 function renderPerks() {
-  const s = SCENARIOS[currentScenario];
+  const s = cfg().scenarios[currentScenario];
   const riderTierIndex = TIERS.indexOf(getTier(s.points));
   const viewingTierIndex = TIERS.indexOf(activeTab);
-  const perksForTab = PERKS.filter(p => p.tier === activeTab);
+  const perksForTab = getPerks().filter(p => p.tier === activeTab);
   const isUnlocked = viewingTierIndex <= riderTierIndex;
   const container = document.getElementById('perks-list');
   if (!container) return;
@@ -1065,12 +1126,20 @@ function renderPerks() {
 
 function setScenario(scenario) {
   currentScenario = scenario;
-  const s = SCENARIOS[scenario];
+  const s = cfg().scenarios[scenario];
   activeTab = getTier(s.points);
   if (currentPage === 'perks') renderPerksPage();
-  document.querySelectorAll('.demo-switcher__btn').forEach(btn => {
-    btn.classList.toggle('demo-switcher__btn--active', btn.textContent.toLowerCase() === scenario);
+  document.querySelectorAll('.demo-switcher__btn[data-scenario]').forEach(btn => {
+    btn.classList.toggle('demo-switcher__btn--active', btn.dataset.scenario === scenario);
   });
+}
+
+function setMode(mode) {
+  activeMode = mode;
+  document.querySelectorAll('.demo-switcher__btn[data-mode]').forEach(btn => {
+    btn.classList.toggle('demo-switcher__btn--active', btn.dataset.mode === mode);
+  });
+  setScenario(currentScenario);
 }
 
 // Init
