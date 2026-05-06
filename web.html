@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deliveroo Rider – Perks</title>
+<style>
+  :root {
+    --roo-teal: #00CCBC;
+    --roo-teal-dark: #00A89D;
+    --roo-dark: #2E3333;
+    --roo-grey-900: #2E3333;
+    --roo-grey-700: #585C5C;
+    --roo-grey-500: #8A8F8F;
+    --roo-grey-300: #BBBFBF;
+    --roo-grey-100: #E8EAEA;
+    --roo-grey-50: #F5F5F5;
+    --roo-white: #FFFFFF;
+    --roo-gold: #D4A853;
+    --roo-gold-bg: #FDF6E8;
+    --roo-silver: #8A9BAE;
+    --roo-silver-bg: #EEF1F5;
+    --roo-bronze: #C17F4E;
+    --roo-bronze-bg: #FAF0E6;
+    --roo-radius: 12px;
+    --roo-radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--roo-grey-50);
+    color: var(--roo-grey-900);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ===== SITE HEADER ===== */
+  .site-header {
+    background: var(--roo-white);
+    border-bottom: 1px solid var(--roo-grey-100);
+    padding: 0 32px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+
+  .site-header__logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--roo-teal);
+    font-family: stratos, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .site-header__logout {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 1px solid var(--roo-grey-100);
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--roo-teal);
+    cursor: pointer;
+  }
+
+  /* ===== MAIN LAYOUT ===== */
+  .site-body {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 32px 60px;
+  }
+
+  .perks-card {
+    width: 100%;
+    max-width: 720px;
+    background: var(--roo-white);
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .perks-card__top {
+    padding: 20px 24px;
+  }
+
+  .perks-card__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--roo-teal);
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-family: inherit;
+    margin-bottom: 8px;
+  }
+
+  .perks-card__title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--roo-grey-900);
+  }
+
+  .perks-card__welcome {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--roo-grey-900);
+    margin-bottom: 8px;
+  }
+
+  .perks-card__meta {
+    font-size: 14px;
+    color: var(--roo-grey-700);
+    margin-bottom: 4px;
+  }
+
+  .perks-card__meta a {
+    color: var(--roo-teal);
+    text-decoration: underline;
+  }
+
+  .perks-card__saved {
+    font-size: 14px;
+    color: var(--roo-teal);
+    margin-bottom: 0;
+  }
+
+  /* ===== TIER HEADER ===== */
+  .tier-header {
+    background: var(--roo-teal);
+    color: var(--roo-white);
+    padding: 24px 24px 20px;
+  }
+
+  .tier-header__label {
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .tier-header__row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .tier-header__tier-name {
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .tier-header__points {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+  }
+  .tier-header__points strong { color: var(--roo-white); font-weight: 600; }
+
+  .progress-container { position: relative; margin-bottom: 8px; }
+
+  .progress-bar {
+    height: 6px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px;
+    overflow: visible;
+    position: relative;
+  }
+
+  .progress-bar__fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--roo-white);
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-markers {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-top: -3px;
+    height: 32px;
+  }
+
+  .progress-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    transform: translateX(-50%);
+  }
+
+  .progress-marker__dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.2);
+    border: 2px solid var(--roo-teal);
+  }
+  .progress-marker__dot--reached { background: var(--roo-white); }
+
+  .progress-marker__label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 4px;
+    white-space: nowrap;
+  }
+
+  .tier-header__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 6px;
+  }
+
+  .tier-header__next {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+  }
+  .tier-header__next strong { color: var(--roo-white); font-weight: 700; }
+
+  .month-reset {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    white-space: nowrap;
+  }
+
+  /* Points Breakdown */
+  .points-breakdown {
+    margin-top: 14px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.12);
+    overflow: hidden;
+  }
+
+  .points-breakdown__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    cursor: pointer;
+    color: var(--roo-white);
+  }
+
+  .points-breakdown__title {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--roo-white);
+  }
+
+  .points-breakdown__chevron {
+    transition: transform 0.2s;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .points-breakdown__chevron--open { transform: rotate(180deg); }
+
+  .points-breakdown__body { padding: 0 14px 14px; }
+
+  .points-breakdown__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 12px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.92);
+    margin-bottom: 6px;
+  }
+
+  .points-breakdown__row:last-of-type { margin-bottom: 0; }
+
+  .points-breakdown__label {
+    font-size: 13px;
+    color: var(--roo-grey-700);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .points-breakdown__sublabel {
+    font-size: 11px;
+    color: var(--roo-grey-500);
+    margin-top: 1px;
+  }
+
+  .points-breakdown__value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--roo-grey-800);
+    white-space: nowrap;
+  }
+
+  .points-breakdown__value--zero { color: var(--roo-grey-400); font-weight: 500; }
+  .points-breakdown__value--earned { color: #006D5B; }
+
+  .points-breakdown__icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .points-breakdown__update {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+    padding: 8px 0 0;
+    margin-top: 2px;
+  }
+
+  /* Tier Tabs */
+  .tier-tabs {
+    display: flex;
+    background: var(--roo-white);
+    border-bottom: 1px solid var(--roo-grey-100);
+    padding: 0 4px;
+  }
+
+  .tier-tab {
+    flex: 1;
+    padding: 14px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--roo-grey-500);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .tier-tab--active {
+    color: var(--roo-grey-900);
+    border-bottom-color: var(--roo-teal);
+  }
+
+  .tier-tab__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* Perks */
+  .perks-section { padding: 20px; }
+  .perks-section + .perks-section { padding-top: 0; }
+
+  .perks-section__title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--roo-grey-900);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .perk-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: var(--roo-grey-50);
+    border-radius: var(--roo-radius);
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .perk-card--locked { opacity: 0.55; }
+
+  .perk-card__icon {
+    width: 48px;
+    height: 48px;
+    color: var(--roo-grey-700);
+    border-radius: var(--roo-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .perk-card__body { flex: 1; min-width: 0; }
+  .perk-card__name { font-size: 15px; font-weight: 600; }
+  .perk-card__detail { font-size: 13px; color: var(--roo-grey-500); margin-top: 2px; }
+
+  .perk-card__action { flex-shrink: 0; }
+
+  .perk-card__btn {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 20px;
+    background: var(--roo-teal);
+    color: var(--roo-white);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .perk-card__lock { color: var(--roo-grey-300); text-align: center; }
+  .perk-card__lock-label {
+    font-size: 11px;
+    color: var(--roo-grey-500);
+    margin-top: 2px;
+  }
+
+  .perk-card__tier-req {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .perk-card__tier-req--bronze { background: var(--roo-bronze-bg); color: var(--roo-bronze); }
+  .perk-card__tier-req--silver { background: var(--roo-silver-bg); color: var(--roo-silver); }
+  .perk-card__tier-req--gold { background: var(--roo-gold-bg); color: var(--roo-gold); }
+
+  /* ===== SITE FOOTER ===== */
+  .site-footer {
+    background: var(--roo-dark);
+    color: var(--roo-grey-300);
+    padding: 40px 32px 24px;
+    margin-top: auto;
+  }
+
+  .footer-columns {
+    display: flex;
+    gap: 32px;
+    max-width: 960px;
+    margin: 0 auto 32px;
+    flex-wrap: wrap;
+  }
+
+  .footer-col {
+    flex: 1;
+    min-width: 180px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .footer-col__title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--roo-white);
+    margin-bottom: 12px;
+  }
+
+  .footer-col a {
+    display: block;
+    color: var(--roo-grey-300);
+    text-decoration: none;
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .footer-col a:hover { color: var(--roo-teal); }
+
+  .footer-bottom {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+  }
+
+  .footer-socials a {
+    color: var(--roo-grey-300);
+    text-decoration: none;
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--roo-grey-500);
+  }
+
+  /* Demo Switcher */
+  .demo-switcher {
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    background: var(--roo-white);
+    border: 1px solid var(--roo-grey-100);
+    border-radius: 12px;
+    padding: 10px 16px 12px;
+    z-index: 200;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    width: 360px;
+  }
+
+  .demo-switcher__row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .demo-switcher__label {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--roo-grey-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 62px;
+    flex-shrink: 0;
+  }
+
+  .demo-switcher__buttons { display: flex; gap: 6px; flex: 1; }
+
+  .demo-switcher__btn {
+    flex: 1;
+    padding: 7px 4px;
+    border: 1.5px solid var(--roo-grey-100);
+    border-radius: 6px;
+    background: var(--roo-white);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--roo-grey-700);
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .demo-switcher__btn--active {
+    border-color: var(--roo-teal);
+    color: var(--roo-teal);
+    background: #F0FFFE;
+  }
+</style>
+</head>
+<body>
+
+<!-- Site Header -->
+<header class="site-header">
+  <a href="#" class="site-header__logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16.861 0l-1.127 10.584L13.81 1.66 7.777 2.926l1.924 8.922-8.695 1.822 1.535 7.127L17.832 24l3.498-7.744L22.994.636 16.861 0zM11.39 13.61a.755.755 0 01.322.066c.208.093.56.29.63.592.103.434.004.799-.312 1.084v.002c-.315.284-.732.258-1.174.113-.441-.145-.637-.672-.47-1.309.124-.473.71-.544 1.004-.549zm4.142.548c.447-.012.832.186 1.05.543.217.357.107.75-.122 1.143h-.002c-.229.392-.83.445-1.422.16-.399-.193-.397-.684-.353-.983a.922.922 0 01.193-.447c.142-.177.381-.408.656-.416Z"/></svg>
+    deliveroo
+  </a>
+  <button class="site-header__logout">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+    Log out
+  </button>
+</header>
+
+<!-- Main Content -->
+<main class="site-body">
+  <div class="perks-card" id="perksCard"></div>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-columns">
+    <div class="footer-col">
+      <div class="footer-col__title">Discover Deliveroo</div>
+      <a href="#">About us</a>
+      <a href="#">Investors</a>
+      <a href="#">Engineering blog</a>
+      <a href="#">Design blog</a>
+      <a href="#">Careers</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col__title">Legal</div>
+      <a href="#">Terms and conditions</a>
+      <a href="#">Privacy</a>
+      <a href="#">Cookies</a>
+      <a href="#">Modern Slavery Statement</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col__title">Help</div>
+      <a href="#">Contact</a>
+      <a href="#">FAQs</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-socials">
+      <a href="#">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+      </a>
+      <a href="#">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+      </a>
+      <a href="#">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Deliveroo</div>
+  </div>
+</footer>
+
+<!-- Demo Switcher -->
+<div class="demo-switcher">
+  <div class="demo-switcher__row">
+    <div class="demo-switcher__label">View</div>
+    <div class="demo-switcher__buttons">
+      <button class="demo-switcher__btn" onclick="window.location='index.html'">Mobile</button>
+      <button class="demo-switcher__btn demo-switcher__btn--active">Web</button>
+    </div>
+  </div>
+  <div class="demo-switcher__row" style="margin-top:8px;">
+    <div class="demo-switcher__label">Rider tier</div>
+    <div class="demo-switcher__buttons">
+      <button class="demo-switcher__btn" data-scenario="new" onclick="setScenario('new')">New</button>
+      <button class="demo-switcher__btn" data-scenario="bronze" onclick="setScenario('bronze')">Bronze</button>
+      <button class="demo-switcher__btn" data-scenario="silver" onclick="setScenario('silver')">Silver</button>
+      <button class="demo-switcher__btn" data-scenario="gold" onclick="setScenario('gold')">Gold</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TIERS = ['base', 'bronze', 'silver', 'gold'];
+const TIER_COLORS = {
+  base: { dot: '#8A8F8F' },
+  bronze: { dot: '#C17F4E' },
+  silver: { dot: '#8A9BAE' },
+  gold: { dot: '#D4A853' },
+};
+
+const CONFIGS = {
+  full: {
+    label: 'Full Product',
+    thresholds: { base: 0, bronze: 100, silver: 250, gold: 500 },
+    maxPts: 600,
+    scenarios: {
+      new:    { points: 75,  totalOrders: 42,  ar: 78, superPeak: 8,  breakdown: { arPts: 0,  arLabel: '78%', volumePts: 42,  peakPts: 0,  peakLabel: '8 orders',  qualityPts: 0,  qualityLabel: '1 incident' } },
+      bronze: { points: 155, totalOrders: 80,  ar: 86, superPeak: 22, breakdown: { arPts: 30, arLabel: '86%', volumePts: 80,  peakPts: 15, peakLabel: '22 orders', qualityPts: 25, qualityLabel: 'Clean record' } },
+      silver: { points: 325, totalOrders: 200, ar: 94, superPeak: 35, breakdown: { arPts: 60, arLabel: '94%', volumePts: 200, peakPts: 40, peakLabel: '35 orders', qualityPts: 25, qualityLabel: 'Clean record' } },
+      gold:   { points: 525, totalOrders: 400, ar: 96, superPeak: 42, breakdown: { arPts: 60, arLabel: '96%', volumePts: 400, peakPts: 40, peakLabel: '42 orders', qualityPts: 25, qualityLabel: 'Clean record' } },
+    },
+    breakdownRows: (s, bIcon) => {
+      const b = s.breakdown;
+      return [
+        { icon: bIcon('<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>', '#00CCBC'), bg: '#E6FAF8', label: 'Acceptance Rate', sub: b.arLabel, pts: b.arPts, max: '60 pts max' },
+        { icon: bIcon('<path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>', '#E8890C'), bg: '#FFF4E6', label: 'Orders Delivered', sub: `${s.totalOrders} orders × 1 pt`, pts: b.volumePts, max: '' },
+        { icon: bIcon('<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>', '#E84C3D'), bg: '#FFF0F0', label: 'Super Peak', sub: b.peakLabel + ' in peak', pts: b.peakPts, max: '40 pts max' },
+        { icon: bIcon('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>', '#43A047'), bg: '#E8F5E9', label: 'Quality', sub: b.qualityLabel, pts: b.qualityPts, max: '25 pts max' },
+      ];
+    },
+  },
+};
+
+let activeMode = 'full';
+
+const SVG_ICONS = {
+  shirt:  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/></svg>`,
+  grid:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>`,
+  fuel:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22V5a2 2 0 012-2h8a2 2 0 012 2v17"/><path d="M15 10h2a2 2 0 012 2v3a2 2 0 002 2v0"/><path d="M3 22h12"/><rect x="6" y="6" width="6" height="4" rx="1"/></svg>`,
+  wrench: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>`,
+  cart:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>`,
+  film:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5"/></svg>`,
+  book:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>`,
+  chat:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>`,
+  bag:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>`,
+  piggy:  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.4-11-.3-11 5 0 4 4.5 7 9 7 1.8 0 3.5-.5 4.8-1.3L21 19v-6h1v-4h-1c-.2-1.2-1-2.6-2-3z"/><circle cx="14" cy="10" r=".5" fill="currentColor"/></svg>`,
+  eye:    `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  phone:  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>`,
+  rocket: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 00-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 012-3.95A12.88 12.88 0 0122 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 01-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 3 0 3 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-3 0-3"/></svg>`,
+};
+
+const PERKS = [
+  { id: 'kit-store', name: 'Kit Store', detail: 'Standard discounts on Deliveroo kit', icon: SVG_ICONS.shirt, tier: 'base', category: 'Kit' },
+  { id: 'perks-hub', name: 'Perks Hub Access', detail: 'Browse all available rider perks', icon: SVG_ICONS.grid, tier: 'base', category: 'Platform' },
+  { id: 'fuel-bronze', name: 'Shell Fuel Cashback', detail: '1–3% cashback on fuel purchases', icon: SVG_ICONS.fuel, tier: 'bronze', category: 'Fuel' },
+  { id: 'shell-app', name: 'Shell Service App', detail: 'Free access to Shell service tools', icon: SVG_ICONS.wrench, tier: 'bronze', category: 'Fuel' },
+  { id: 'grocery-voucher', name: 'Grocery Vouchers', detail: 'Discounted grocery partner vouchers', icon: SVG_ICONS.cart, tier: 'bronze', category: 'Groceries' },
+  { id: 'fuel-silver', name: 'Shell Fuel Cashback+', detail: '4–7% cashback on fuel purchases', icon: SVG_ICONS.fuel, tier: 'silver', category: 'Fuel' },
+  { id: 'vue', name: 'Vue Cinema', detail: 'Up to 35% off cinema tickets', icon: SVG_ICONS.film, tier: 'silver', category: 'Leisure' },
+  { id: 'duolingo', name: 'Duolingo Plus', detail: 'Free Duolingo Plus subscription', icon: SVG_ICONS.book, tier: 'silver', category: 'Education' },
+  { id: 'priority-support', name: 'Priority Support', detail: 'Reduced wait times for rider support', icon: SVG_ICONS.chat, tier: 'silver', category: 'Support' },
+  { id: 'kit-refresh', name: 'Kit Refresh Bundle', detail: 'Free thermal bag and vest refresh', icon: SVG_ICONS.bag, tier: 'silver', category: 'Kit' },
+  { id: 'fuel-gold', name: 'Shell Fuel Cashback Pro', detail: '10%+ cashback on fuel purchases', icon: SVG_ICONS.fuel, tier: 'gold', category: 'Fuel' },
+  { id: 'pension', name: 'Pension Benefit', detail: 'Waived admin fees on Smart Pension', icon: SVG_ICONS.piggy, tier: 'gold', category: 'Money' },
+  { id: 'premium-kit', name: 'Premium Kit', detail: 'Free premium Deliveroo kit bundle', icon: SVG_ICONS.shirt, tier: 'gold', category: 'Kit' },
+  { id: 'first-look', name: 'First Look Access', detail: 'Pilot new features and focus groups', icon: SVG_ICONS.eye, tier: 'gold', category: 'Platform' },
+  { id: 'esim', name: 'Rider eSIM', detail: 'Discounted data eSIM bundle', icon: SVG_ICONS.phone, tier: 'gold', category: 'Tech' },
+  { id: 'dispatch', name: 'Dispatch Priority', detail: 'Priority order assignment during peak', icon: SVG_ICONS.rocket, tier: 'gold', category: 'Dispatch' },
+];
+
+function cfg() { return CONFIGS[activeMode]; }
+
+function getTier(points) {
+  const t = cfg().thresholds;
+  if (points >= t.gold) return 'gold';
+  if (points >= t.silver) return 'silver';
+  if (points >= t.bronze) return 'bronze';
+  return 'base';
+}
+
+function getNextTier(tier) {
+  const idx = TIERS.indexOf(tier);
+  return idx < TIERS.length - 1 ? TIERS[idx + 1] : null;
+}
+
+function getTierLabel(tier) {
+  return tier === 'base' ? 'Base' : tier.charAt(0).toUpperCase() + tier.slice(1);
+}
+
+function daysUntilReset() {
+  const now = new Date();
+  return Math.ceil((new Date(now.getFullYear(), now.getMonth() + 1, 1) - now) / 86400000);
+}
+
+function progressPercent(points) { return Math.min((points / cfg().maxPts) * 100, 100); }
+function markerPosition(threshold) { return (threshold / cfg().maxPts) * 100; }
+
+let currentScenario = 'bronze';
+let activeTab = null;
+let breakdownOpen = false;
+
+function renderPerksPage() {
+  const c = cfg();
+  const s = c.scenarios[currentScenario];
+  const tier = getTier(s.points);
+  const next = getNextTier(tier);
+  const pointsToNext = next ? c.thresholds[next] - s.points : 0;
+  const days = daysUntilReset();
+  const th = c.thresholds;
+  if (!activeTab) activeTab = tier;
+
+  const markers = [
+    { val: th.bronze, label: th.bronze.toLocaleString() },
+    { val: th.silver, label: th.silver.toLocaleString() },
+    { val: th.gold, label: th.gold.toLocaleString() },
+  ];
+
+  const card = document.getElementById('perksCard');
+  card.innerHTML = `
+    <div class="perks-card__top">
+      <button class="perks-card__back" onclick="history.back()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="perks-card__welcome">Welcome Marc Jeffrey</div>
+      <div class="perks-card__meta">Not Marc Jeffrey? <a href="#">Log out</a></div>
+      <div class="perks-card__saved">View 0 Saved perks</div>
+    </div>
+
+    <div class="tier-header">
+
+      <div class="tier-header__label">Your Tier</div>
+      <div class="tier-header__row">
+        <div class="tier-header__tier-name">${getTierLabel(tier)}</div>
+        <div class="tier-header__points"><strong>${s.points.toLocaleString()}</strong> pts</div>
+      </div>
+
+      <div class="progress-container">
+        <div class="progress-bar">
+          <div class="progress-bar__fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-markers">
+          ${markers.map(m => `<div class="progress-marker" style="left:${markerPosition(m.val)}%"><div class="progress-marker__dot ${s.points>=m.val?'progress-marker__dot--reached':''}"></div><div class="progress-marker__label">${m.label}</div></div>`).join('')}
+        </div>
+      </div>
+
+      <div class="tier-header__footer">
+        ${next ? `<div class="tier-header__next"><strong>${pointsToNext.toLocaleString()} pts</strong> to ${getTierLabel(next)}</div>` : '<div class="tier-header__next" style="color:var(--roo-white);">You\'ve reached the top tier</div>'}
+        <div class="month-reset">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Resets in ${days} days
+        </div>
+      </div>
+
+      <div class="points-breakdown" id="pointsBreakdown">
+        <div class="points-breakdown__header" onclick="toggleBreakdown()">
+          <div class="points-breakdown__title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            How you're earning
+          </div>
+          <svg class="points-breakdown__chevron" id="breakdownChevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="points-breakdown__body" id="breakdownBody" style="display:none;"></div>
+      </div>
+    </div>
+
+    <div class="tier-tabs">
+      ${TIERS.map(t => `<button class="tier-tab ${activeTab===t?'tier-tab--active':''}" data-tier="${t}" onclick="setActiveTab('${t}')"><span class="tier-tab__dot" style="background:${TIER_COLORS[t].dot}"></span>${getTierLabel(t)}</button>`).join('')}
+    </div>
+
+    <div id="perks-list"></div>`;
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const fill = document.querySelector('.progress-bar__fill');
+      if (fill) fill.style.width = progressPercent(s.points) + '%';
+    });
+  });
+
+  renderPerks();
+
+  const breakdownBody = document.getElementById('breakdownBody');
+  if (breakdownBody) {
+    breakdownBody.innerHTML = renderBreakdownRows(c.scenarios[currentScenario]);
+    breakdownBody.style.display = breakdownOpen ? 'block' : 'none';
+  }
+  const chevron = document.getElementById('breakdownChevron');
+  if (chevron) chevron.classList.toggle('points-breakdown__chevron--open', breakdownOpen);
+}
+
+function toggleBreakdown() {
+  breakdownOpen = !breakdownOpen;
+  const body = document.getElementById('breakdownBody');
+  const chevron = document.getElementById('breakdownChevron');
+  if (body) body.style.display = breakdownOpen ? 'block' : 'none';
+  if (chevron) chevron.classList.toggle('points-breakdown__chevron--open', breakdownOpen);
+}
+
+function renderBreakdownRows(s) {
+  const bIcon = (d, color) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const rows = cfg().breakdownRows(s, bIcon);
+
+  return rows.map(r => `
+    <div class="points-breakdown__row">
+      <div class="points-breakdown__label">
+        <div class="points-breakdown__icon" style="background:${r.bg}">${r.icon}</div>
+        <div>
+          <div>${r.label}</div>
+          <div class="points-breakdown__sublabel">${r.sub}${r.max ? ' · ' + r.max : ''}</div>
+        </div>
+      </div>
+      <div class="points-breakdown__value ${r.pts > 0 ? 'points-breakdown__value--earned' : 'points-breakdown__value--zero'}">
+        ${r.pts > 0 ? '+' : ''}${r.pts} pts
+      </div>
+    </div>
+  `).join('') + `
+    <div class="points-breakdown__update">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Updated every 24 hours
+    </div>
+  `;
+}
+
+function setActiveTab(tier) {
+  activeTab = tier;
+  renderPerks();
+  document.querySelectorAll('.tier-tab').forEach(tab => {
+    tab.classList.toggle('tier-tab--active', tab.dataset.tier === tier);
+  });
+}
+
+function renderPerks() {
+  const s = cfg().scenarios[currentScenario];
+  const riderTierIndex = TIERS.indexOf(getTier(s.points));
+  const viewingTierIndex = TIERS.indexOf(activeTab);
+  const perksForTab = PERKS.filter(p => p.tier === activeTab);
+  const isUnlocked = viewingTierIndex <= riderTierIndex;
+  const container = document.getElementById('perks-list');
+  if (!container) return;
+
+  const categories = [...new Set(perksForTab.map(p => p.category))];
+
+  container.innerHTML = categories.map(cat => {
+    const catPerks = perksForTab.filter(p => p.category === cat);
+    return `<div class="perks-section">
+      <div class="perks-section__title">${cat}</div>
+      ${catPerks.map(p => {
+        const locked = !isUnlocked;
+        return `<div class="perk-card ${locked?'perk-card--locked':''}">
+          ${locked?`<span class="perk-card__tier-req perk-card__tier-req--${p.tier}">${getTierLabel(p.tier)}</span>`:''}
+          <div class="perk-card__icon" style="background:${locked ? 'var(--roo-grey-100)' : '#E6FAF8'}; color:${locked ? 'var(--roo-grey-400)' : 'var(--roo-teal)'}">${p.icon}</div>
+          <div class="perk-card__body"><div class="perk-card__name">${p.name}</div><div class="perk-card__detail">${p.detail}</div></div>
+          <div class="perk-card__action">
+            ${locked
+              ? `<div class="perk-card__lock"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg><div class="perk-card__lock-label">${getTierLabel(p.tier)}</div></div>`
+              : `<button class="perk-card__btn">Redeem</button>`}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+function setScenario(scenario) {
+  currentScenario = scenario;
+  const s = cfg().scenarios[scenario];
+  activeTab = getTier(s.points);
+  renderPerksPage();
+  document.querySelectorAll('.demo-switcher__btn[data-scenario]').forEach(btn => {
+    btn.classList.toggle('demo-switcher__btn--active', btn.dataset.scenario === scenario);
+  });
+}
+
+setScenario('bronze');
+</script>
+</body>
+</html>
