@@ -31,30 +31,49 @@
 
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: var(--roo-grey-50);
+    background: #1a1a2e;
     color: var(--roo-grey-900);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ===== PHONE FRAME ===== */
+  .phone-frame {
+    width: 390px;
+    height: 844px;
+    border-radius: 40px;
     overflow: hidden;
+    box-shadow: 0 0 0 12px #111, 0 0 0 14px #333, 0 20px 60px rgba(0,0,0,0.5);
     position: relative;
+    background: var(--roo-grey-50);
+  }
+
+  .phone-frame__notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160px;
+    height: 34px;
+    background: #111;
+    border-radius: 0 0 20px 20px;
+    z-index: 300;
   }
 
   /* ===== APP SHELL ===== */
   .app-shell {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: relative;
     overflow: hidden;
-    display: flex;
-  }
-
-  @media (min-width: 769px) {
-    .app-shell { flex-direction: row; }
   }
 
   /* ===== SIDEBAR OVERLAY ===== */
   .sidebar-overlay {
-    position: fixed;
+    position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0,0,0,0.5);
     z-index: 90;
@@ -70,11 +89,11 @@
 
   /* ===== SIDEBAR ===== */
   .sidebar {
-    position: fixed;
+    position: absolute;
     top: 0; left: 0;
     transform: translateX(-100%);
     width: var(--sidebar-width);
-    height: 100vh;
+    height: 100%;
     background: var(--roo-white);
     z-index: 100;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -88,16 +107,6 @@
   .sidebar--open {
     transform: translateX(0);
     visibility: visible;
-  }
-
-  @media (min-width: 769px) {
-    .sidebar {
-      position: relative;
-      transform: none;
-      visibility: visible;
-      flex-shrink: 0;
-    }
-    .sidebar-overlay { display: none; }
   }
 
   .sidebar__header {
@@ -188,11 +197,10 @@
 
   /* ===== MAIN CONTENT ===== */
   .main-content {
-    flex: 1;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow-y: auto;
     background: var(--roo-grey-50);
-    min-width: 0;
   }
 
   /* ===== HOME SCREEN (MAP PLACEHOLDER) ===== */
@@ -257,7 +265,7 @@
 
   /* ===== HAMBURGER BUTTON ===== */
   .hamburger {
-    position: fixed;
+    position: absolute;
     top: 54px;
     left: 16px;
     z-index: 80;
@@ -270,10 +278,6 @@
     align-items: center;
     justify-content: center;
     padding: 0;
-  }
-
-  @media (min-width: 769px) {
-    .hamburger { display: none; }
   }
 
   .hamburger--hidden { opacity: 0; pointer-events: none; }
@@ -289,10 +293,6 @@
     padding: 52px 20px 20px;
   }
 
-  @media (min-width: 769px) {
-    .tier-header { padding-top: 28px; }
-    .tier-header__top-bar > div:first-child { display: none; }
-  }
 
   .tier-header__top-bar {
     display: flex;
@@ -652,25 +652,15 @@
   /* Demo Switcher */
   .demo-switcher {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 20px;
+    right: 20px;
     background: var(--roo-white);
-    border-top: 1px solid var(--roo-grey-100);
+    border: 1px solid var(--roo-grey-100);
+    border-radius: 12px;
     padding: 10px 16px 12px;
     z-index: 200;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
-  }
-
-  @media (min-width: 769px) {
-    .demo-switcher {
-      left: auto;
-      right: 16px;
-      bottom: 16px;
-      width: 400px;
-      border-radius: 12px;
-      border: 1px solid var(--roo-grey-100);
-    }
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    width: 360px;
   }
 
   .demo-switcher__row {
@@ -711,12 +701,14 @@
     background: #F0FFFE;
   }
 
-  .content-spacer { height: 110px; }
+  .content-spacer { height: 40px; }
 </style>
 </head>
 <body>
 
-<div class="app-shell">
+<div class="phone-frame">
+  <div class="phone-frame__notch"></div>
+  <div class="app-shell">
 
   <!-- Hamburger -->
   <button class="hamburger" id="hamburgerBtn" onclick="openSidebar()">
@@ -776,6 +768,7 @@
   <!-- Main Content -->
   <div class="main-content" id="mainContent"></div>
 
+</div>
 </div>
 
 <!-- Demo Switcher -->
