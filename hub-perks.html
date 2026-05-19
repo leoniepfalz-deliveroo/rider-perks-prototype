@@ -365,8 +365,8 @@
     position: absolute;
     top: 8px;
     left: 8px;
-    width: 56px;
-    height: 56px;
+    width: 80px;
+    height: 80px;
     z-index: 2;
   }
   .perk-card__starburst svg {
@@ -380,14 +380,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 7px;
+    font-size: 9px;
     font-weight: 700;
     color: var(--roo-white);
     text-align: center;
-    line-height: 1.1;
+    line-height: 1.15;
     text-transform: uppercase;
     letter-spacing: 0.3px;
     pointer-events: none;
+    padding: 16px;
   }
 
   /* ===== TIER BADGE ON LOCKED CARDS ===== */
@@ -951,7 +952,7 @@ function renderPerksGrid() {
           ${d.name}
           <span class="perk-card__starburst">
             ${starburstSvg}
-            <span class="perk-card__starburst-text">Deal of<br>the month</span>
+            <span class="perk-card__starburst-text">Perk of<br>the month</span>
           </span>
           <span class="perk-card__badge">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
