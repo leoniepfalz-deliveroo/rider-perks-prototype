@@ -902,7 +902,7 @@ function renderPerksGrid() {
   grid.innerHTML = perks.map(p => {
     const locked = TIERS.indexOf(p.tier) > riderTierIdx;
     return `
-      <div class="perk-card ${locked ? 'perk-card--locked' : ''}" onclick="openPerkModal('${p.id}')">`
+      <div class="perk-card ${locked ? 'perk-card--locked' : ''}" onclick="openPerkModal('${p.id}')">
         <div class="perk-card__img" style="background:${p.bg}; color:${p.color};">
           ${p.name}
           ${locked
