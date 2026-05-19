@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rider Hub – Perks (Prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --roo-teal: #00CCBC;
@@ -22,16 +25,19 @@
     --roo-silver-bg: #EEF1F5;
     --roo-bronze: #C17F4E;
     --roo-bronze-bg: #FAF0E6;
-    --roo-radius: 12px;
+    --roo-radius: 8px;
     --roo-radius-sm: 8px;
-    --font: 'ibm-plex-sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --mackerel: #eaebeb;
+    --light-grey: #fcfcfc;
+    --font-text: 'IBM Plex Sans', 'ibm-plex-sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'IBM Plex Sans', 'stratos', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: var(--font);
-    background: var(--roo-grey-50);
+    font-family: var(--font-text);
+    background: var(--light-grey);
     color: var(--roo-grey-900);
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
@@ -39,28 +45,59 @@
 
   /* ===== HEADER ===== */
   .hub-header {
-    background: var(--roo-dark);
+    background: var(--roo-white);
+    border-bottom: 1px solid var(--mackerel);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 24px;
+    padding: 0 24px;
+    height: 60px;
     position: sticky;
     top: 0;
     z-index: 50;
   }
-  .hub-header__logo { height: 28px; display: flex; align-items: center; }
+  .hub-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1230px;
+  }
+  .hub-header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
   .hub-header__logo svg { height: 28px; width: auto; }
+  .hub-header__logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-text);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--roo-teal);
+    background: none;
+    border: 1px solid var(--mackerel);
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .hub-header__logout:hover { background: var(--roo-grey-50); }
 
   /* ===== MAIN CONTAINER ===== */
   .hub-main {
-    max-width: 768px;
+    max-width: 769px;
     margin: 24px auto;
     background: var(--roo-white);
-    border: 1px solid #eaebeb;
+    border: 1px solid var(--mackerel);
     border-radius: 4px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    padding: 32px 24px;
+    box-shadow: 0px 1px 4px rgba(0,0,0,0.08);
+    padding: 24px 16px;
+    position: relative;
   }
+  @media (min-width: 769px) { .hub-main { padding: 32px 24px; } }
   @media (max-width: 800px) { .hub-main { margin: 16px; } }
 
   /* ===== BACK LINK ===== */
@@ -77,10 +114,13 @@
   .back-link:hover { text-decoration: underline; }
 
   .page-title {
-    font-size: 24px;
+    font-family: var(--font-heading);
+    font-size: 1.875rem;
     font-weight: 700;
     color: var(--roo-grey-900);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
   }
 
   /* ===== TIER STATUS BANNER ===== */
@@ -160,10 +200,12 @@
 
   /* ===== SECTION HEADING ===== */
   .section-heading {
-    font-size: 18px;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
     font-weight: 700;
     color: var(--roo-grey-900);
     margin-bottom: 16px;
+    line-height: 1.2;
   }
 
   /* ===== TIER TABS ===== */
@@ -189,7 +231,7 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    font-family: var(--font);
+    font-family: var(--font-text);
   }
   .tier-tab:hover { color: var(--roo-grey-700); }
   .tier-tab--active {
@@ -205,30 +247,35 @@
   /* ===== CATEGORY FILTERS ===== */
   .category-filters {
     display: flex;
-    gap: 10px;
+    gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 24px;
   }
   .category-btn {
-    padding: 8px 16px;
-    border: 1px solid var(--roo-grey-100);
-    border-radius: 20px;
+    padding: 10px 20px;
+    border: 2px solid var(--mackerel);
+    border-radius: 4px;
     background: var(--roo-white);
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
-    color: var(--roo-grey-700);
+    color: var(--roo-grey-900);
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     transition: all 0.15s;
-    font-family: var(--font);
+    font-family: var(--font-text);
+    line-height: 1.4;
   }
-  .category-btn:hover { border-color: var(--roo-grey-300); }
+  .category-btn:hover { border-color: var(--roo-grey-300); background: var(--roo-grey-50); }
   .category-btn--active {
     background: var(--roo-teal);
     color: var(--roo-white);
     border-color: var(--roo-teal);
+  }
+  .category-btn--active:hover {
+    background: var(--roo-teal-dark);
+    border-color: var(--roo-teal-dark);
   }
 
   /* ===== PERKS GRID ===== */
@@ -249,7 +296,7 @@
 
   /* ===== PERK CARD (hub-style with image, title, subtitle, tick) ===== */
   .perk-card {
-    border-radius: var(--roo-radius-sm);
+    border-radius: var(--roo-radius);
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     cursor: pointer;
@@ -293,22 +340,44 @@
     background: var(--roo-grey-300);
   }
 
-  .perk-card__body { padding: 12px 16px 16px; }
+  .perk-card__body { padding: 0 16px 16px; }
 
   .perk-card__title {
     display: block;
-    font-size: 14px;
-    font-weight: 600;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
     color: var(--roo-grey-900);
     line-height: 1.3;
-    margin-bottom: 3px;
+    margin-bottom: 2px;
+    margin-top: 12px;
   }
 
   .perk-card__subtitle {
     display: block;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--roo-grey-500);
     line-height: 1.4;
+  }
+
+  /* ===== PERK OF THE MONTH (featured card) ===== */
+  .perk-card--featured {
+    border: 2px dashed var(--roo-teal);
+    box-shadow: none;
+    border-radius: var(--roo-radius);
+    margin-bottom: 8px;
+  }
+  .perk-card--featured:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  .perk-card--featured .perk-card__img {
+    aspect-ratio: 16 / 9;
+  }
+  .perk-card--featured .perk-card__body {
+    padding: 12px 16px 16px;
+    text-align: center;
+  }
+  .perk-card--featured .perk-card__title {
+    font-size: 15px;
+    margin-top: 0;
   }
 
   /* ===== TIER BADGE ON LOCKED CARDS ===== */
@@ -409,6 +478,7 @@
   }
 
   .modal__title {
+    font-family: var(--font-heading);
     font-size: 22px;
     font-weight: 700;
     color: var(--roo-grey-900);
@@ -441,7 +511,7 @@
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    font-family: var(--font);
+    font-family: var(--font-text);
     transition: background 0.15s;
     width: 100%;
   }
@@ -481,7 +551,7 @@
     font-weight: 600;
     color: var(--roo-grey-700);
     cursor: pointer;
-    font-family: var(--font);
+    font-family: var(--font-text);
     transition: all 0.15s;
     white-space: nowrap;
   }
@@ -526,7 +596,7 @@
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    font-family: var(--font);
+    font-family: var(--font-text);
     padding: 0;
     display: inline-flex;
     align-items: center;
@@ -572,7 +642,7 @@
     font-size: 12px; font-weight: 600;
     color: var(--roo-grey-700);
     cursor: pointer;
-    font-family: var(--font);
+    font-family: var(--font-text);
   }
   .demo-switcher__btn--active {
     border-color: var(--roo-teal);
@@ -586,11 +656,17 @@
 
 <!-- Header -->
 <header class="hub-header">
-  <div class="hub-header__logo">
-    <svg viewBox="0 0 187 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M44.5 5.6h5.7c4.4 0 7.1 2.4 7.1 6.2v.1c0 4.2-3.3 6.4-7.4 6.4h-2.2V23h-3.2V5.6zm5.5 9.6c2.6 0 4.1-1.5 4.1-3.3v-.1c0-2.1-1.6-3.2-4.1-3.2h-2.3v6.6h2.3zM59.6 5.6h12.2v2.9h-9v4.3h8v2.9h-8v4.5h9.1V23H59.6V5.6zM74.6 5.6h3.2v14.5h9V23H74.6V5.6zM89.5 5.6h3.2V23h-3.2V5.6zM94.8 5.6h3.4l5.9 14.6L110 5.6h3.3L105.7 23h-3.3l-7.6-17.4zM115.8 5.6h12.2v2.9h-9v4.3h8v2.9h-8v4.5h9.1V23h-12.3V5.6zM130.6 5.6h6.2c3.5 0 5.8 1.8 5.8 4.9v.1c0 3.3-2.7 5-6 5h-2.8V23h-3.2V5.6zm6 7.1c1.9 0 3.1-1 3.1-2.5v-.1c0-1.6-1.2-2.5-3.1-2.5h-2.8v5.1h2.8zm3.5 4.1l-2.5-2.4 2-.8 4.7 6.4h-3.7l-2.7-3.8 2.2.6zM148.5 14.3v-.1c0-5 3.9-9 9.2-9s9.1 3.9 9.1 8.9v.1c0 5-3.8 9-9.2 9s-9.1-3.9-9.1-8.9zm15.1 0v-.1c0-3.4-2.5-6.2-6-6.2s-5.9 2.7-5.9 6.1v.1c0 3.4 2.5 6.2 6 6.2s5.9-2.7 5.9-6.1zM169.6 14.3v-.1c0-5 3.9-9 9.2-9s9.1 3.9 9.1 8.9v.1c0 5-3.8 9-9.2 9s-9.1-3.9-9.1-8.9zm15.1 0v-.1c0-3.4-2.5-6.2-6-6.2s-5.9 2.7-5.9 6.1v.1c0 3.4 2.5 6.2 6 6.2s5.9-2.7 5.9-6.1z" fill="#00CCBC"/>
-      <path d="M20.3 0L18.8 13.5 16.4 2.1 8.7 3.7l2.5 11.4L0 17.5 2 26.6l19.6 4.1L26 20.8l2.1-20L20.3 0zM14.1 19.6c-.3.5-1.1.6-1.5.1-.6-.2-.8-.9-.6-1.7.2-.6.9-.7 1.3-.7.1 0 .3 0 .4.1.3.1.7.4.8.8.1.4 0 1-.4 1.4zm5.7.6c-.3.5-1.1.6-1.8.2-.5-.2-.5-.9-.5-1.3 0-.2.1-.4.3-.6.2-.2.5-.4.8-.5.5-.2 1 0 1.3.7.2.5.2 1-.1 1.5z" fill="#00CCBC"/>
-    </svg>
+  <div class="hub-header__inner">
+    <div class="hub-header__logo">
+      <svg viewBox="0 0 187 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M44.5 5.6h5.7c4.4 0 7.1 2.4 7.1 6.2v.1c0 4.2-3.3 6.4-7.4 6.4h-2.2V23h-3.2V5.6zm5.5 9.6c2.6 0 4.1-1.5 4.1-3.3v-.1c0-2.1-1.6-3.2-4.1-3.2h-2.3v6.6h2.3zM59.6 5.6h12.2v2.9h-9v4.3h8v2.9h-8v4.5h9.1V23H59.6V5.6zM74.6 5.6h3.2v14.5h9V23H74.6V5.6zM89.5 5.6h3.2V23h-3.2V5.6zM94.8 5.6h3.4l5.9 14.6L110 5.6h3.3L105.7 23h-3.3l-7.6-17.4zM115.8 5.6h12.2v2.9h-9v4.3h8v2.9h-8v4.5h9.1V23h-12.3V5.6zM130.6 5.6h6.2c3.5 0 5.8 1.8 5.8 4.9v.1c0 3.3-2.7 5-6 5h-2.8V23h-3.2V5.6zm6 7.1c1.9 0 3.1-1 3.1-2.5v-.1c0-1.6-1.2-2.5-3.1-2.5h-2.8v5.1h2.8zm3.5 4.1l-2.5-2.4 2-.8 4.7 6.4h-3.7l-2.7-3.8 2.2.6zM148.5 14.3v-.1c0-5 3.9-9 9.2-9s9.1 3.9 9.1 8.9v.1c0 5-3.8 9-9.2 9s-9.1-3.9-9.1-8.9zm15.1 0v-.1c0-3.4-2.5-6.2-6-6.2s-5.9 2.7-5.9 6.1v.1c0 3.4 2.5 6.2 6 6.2s5.9-2.7 5.9-6.1zM169.6 14.3v-.1c0-5 3.9-9 9.2-9s9.1 3.9 9.1 8.9v.1c0 5-3.8 9-9.2 9s-9.1-3.9-9.1-8.9zm15.1 0v-.1c0-3.4-2.5-6.2-6-6.2s-5.9 2.7-5.9 6.1v.1c0 3.4 2.5 6.2 6 6.2s5.9-2.7 5.9-6.1z" fill="#00CCBC"/>
+        <path d="M20.3 0L18.8 13.5 16.4 2.1 8.7 3.7l2.5 11.4L0 17.5 2 26.6l19.6 4.1L26 20.8l2.1-20L20.3 0zM14.1 19.6c-.3.5-1.1.6-1.5.1-.6-.2-.8-.9-.6-1.7.2-.6.9-.7 1.3-.7.1 0 .3 0 .4.1.3.1.7.4.8.8.1.4 0 1-.4 1.4zm5.7.6c-.3.5-1.1.6-1.8.2-.5-.2-.5-.9-.5-1.3 0-.2.1-.4.3-.6.2-.2.5-.4.8-.5.5-.2 1 0 1.3.7.2.5.2 1-.1 1.5z" fill="#00CCBC"/>
+      </svg>
+    </div>
+    <button class="hub-header__logout" onclick="void(0)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00CCBC" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+      <span>Log out</span>
+    </button>
   </div>
 </header>
 
@@ -904,17 +980,13 @@ function setScenario(scenario) {
 function renderDealOfMonth() {
   const d = DEAL_OF_MONTH;
   document.getElementById('dealOfMonth').innerHTML = `
-    <h2 class="section-heading">Deal of the month</h2>
-    <div class="perk-card" onclick="openDealModal()" style="cursor:pointer;">
+    <h2 class="section-heading">Perk of the month</h2>
+    <div class="perk-card perk-card--featured" onclick="openDealModal()" style="cursor:pointer;">
       <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
         ${d.name}
-        <span class="perk-card__badge">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        </span>
       </div>
       <div class="perk-card__body">
-        <span class="perk-card__title">${d.name}</span>
-        <span class="perk-card__subtitle">${d.subtitle}</span>
+        <span class="perk-card__title">${d.subtitle}</span>
       </div>
     </div>`;
 }
