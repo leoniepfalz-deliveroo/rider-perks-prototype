@@ -327,6 +327,221 @@
   .perk-card__tier-label--silver { background: var(--roo-silver-bg); color: var(--roo-silver); }
   .perk-card__tier-label--gold { background: var(--roo-gold-bg); color: var(--roo-gold); }
 
+  /* ===== PERK MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .modal-overlay--open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal {
+    background: var(--roo-white);
+    border-radius: var(--roo-radius);
+    width: 90%;
+    max-width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.25s ease;
+  }
+  .modal-overlay--open .modal {
+    transform: translateY(0);
+  }
+
+  .modal__close {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: var(--roo-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.15s;
+  }
+  .modal__close:hover { background: rgba(0,0,0,0.7); }
+
+  .modal__image {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    border-radius: var(--roo-radius) var(--roo-radius) 0 0;
+  }
+
+  .modal__content {
+    padding: 24px;
+  }
+
+  .modal__market-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--roo-grey-50);
+    color: var(--roo-grey-700);
+    margin-bottom: 12px;
+  }
+
+  .modal__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--roo-grey-900);
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .modal__voucher {
+    background: #f4f5f5;
+    border-radius: var(--roo-radius-sm);
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+    transition: background 0.3s ease;
+  }
+  .modal__voucher--revealed {
+    background: #eaf1f3;
+  }
+
+  .modal__show-code-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: var(--roo-teal);
+    color: var(--roo-white);
+    border: none;
+    border-radius: var(--roo-radius-sm);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font);
+    transition: background 0.15s;
+    width: 100%;
+  }
+  .modal__show-code-btn:hover { background: var(--roo-teal-dark); }
+
+  .modal__code-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    animation: modalFadeIn 0.3s ease;
+  }
+
+  @keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal__code {
+    padding: 12px 20px;
+    background: var(--roo-white);
+    border: 2px dashed var(--roo-teal);
+    border-radius: 4px;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: monospace;
+    letter-spacing: 3px;
+    color: var(--roo-grey-900);
+  }
+
+  .modal__copy-btn {
+    padding: 10px 16px;
+    border: 1px solid var(--roo-grey-100);
+    border-radius: var(--roo-radius-sm);
+    background: var(--roo-white);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--roo-grey-700);
+    cursor: pointer;
+    font-family: var(--font);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .modal__copy-btn:hover { border-color: var(--roo-grey-300); }
+  .modal__copy-btn--copied {
+    background: var(--roo-teal);
+    color: var(--roo-white);
+    border-color: var(--roo-teal);
+  }
+
+  .modal__instructions {
+    font-size: 14px;
+    color: var(--roo-grey-700);
+    line-height: 1.5;
+    margin-bottom: 12px;
+    text-align: left;
+    animation: modalFadeIn 0.3s ease;
+  }
+
+  .modal__link {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--roo-teal);
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    animation: modalFadeIn 0.3s ease;
+  }
+  .modal__link:hover { text-decoration: underline; }
+
+  .modal__description {
+    font-size: 15px;
+    color: var(--roo-grey-700);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .modal__terms-toggle {
+    background: none;
+    border: none;
+    color: var(--roo-teal);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font);
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .modal__terms-toggle:hover { text-decoration: underline; }
+
+  .modal__terms {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--roo-grey-500);
+    line-height: 1.5;
+    animation: modalFadeIn 0.3s ease;
+  }
+
   /* ===== DEMO SWITCHER ===== */
   .demo-switcher {
     position: fixed;
@@ -399,6 +614,17 @@
   <div class="content-spacer"></div>
 </div>
 
+<!-- Perk Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="closePerkModal(event)">
+  <div class="modal" id="perkModal" onclick="event.stopPropagation()">
+    <button class="modal__close" onclick="closePerkModal()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal__image" id="modalImage"></div>
+    <div class="modal__content" id="modalContent"></div>
+  </div>
+</div>
+
 <!-- Demo Switcher -->
 <div class="demo-switcher">
   <div class="demo-switcher__label">Demo: Switch rider tier</div>
@@ -429,27 +655,63 @@ const CATEGORIES = ['All', 'Deals', 'Food', 'Transport', 'Insurance'];
 
 const PERKS = [
   // base
-  { id: 'kit-store',        name: 'Kit Store',               subtitle: 'Standard discounts on Deliveroo kit',         tier: 'base',   category: 'Deals',     bg: '#2E3333', color: '#fff' },
-  { id: 'perks-hub',        name: 'Perks Hub Access',        subtitle: 'Browse all available rider perks',            tier: 'base',   category: 'Deals',     bg: '#00CCBC', color: '#fff' },
+  { id: 'kit-store',        name: 'Kit Store',               subtitle: 'Standard discounts on Deliveroo kit',         tier: 'base',   category: 'Deals',     bg: '#2E3333', color: '#fff',
+    description: 'Get exclusive discounts on official Deliveroo rider kit including jackets, thermal bags, and accessories. Available to all active riders.',
+    code: 'ROOKIT15', instructions: 'Use this code at checkout on the Deliveroo Kit Store.', type: 'coupon', market: 'UK' },
+  { id: 'perks-hub',        name: 'Perks Hub Access',        subtitle: 'Browse all available rider perks',            tier: 'base',   category: 'Deals',     bg: '#00CCBC', color: '#fff',
+    description: 'Access the full Perks Hub to discover offers, discounts, and benefits available to Deliveroo riders. New perks are added regularly.',
+    type: 'link', link: '#', linkText: 'Go to Perks Hub', market: 'UK' },
   // bronze
-  { id: 'fuel-bronze',      name: 'Shell Fuel Cashback',     subtitle: '1–3% cashback on fuel purchases',             tier: 'bronze', category: 'Transport', bg: '#FDE74C', color: '#2E3333' },
-  { id: 'shell-app',        name: 'Shell Service App',       subtitle: 'Free access to Shell service tools',          tier: 'bronze', category: 'Transport', bg: '#E8890C', color: '#fff' },
-  { id: 'grocery-voucher',  name: 'Grocery Vouchers',        subtitle: 'Discounted grocery partner vouchers',         tier: 'bronze', category: 'Food',      bg: '#5B8C5A', color: '#fff' },
-  { id: 'friends-family',   name: 'Friends & Family Offers', subtitle: 'Exclusive partner discounts for you & family',tier: 'bronze', category: 'Deals',     bg: '#FDE74C', color: '#2E3333' },
+  { id: 'fuel-bronze',      name: 'Shell Fuel Cashback',     subtitle: '1–3% cashback on fuel purchases',             tier: 'bronze', category: 'Transport', bg: '#FDE74C', color: '#2E3333',
+    description: 'Earn 1–3% cashback on every fuel purchase at Shell stations. Cashback is credited to your Shell Go+ account monthly.',
+    code: 'ROOFUEL1', instructions: 'Link your Shell Go+ account, then fuel up at any Shell station.', type: 'coupon', market: 'UK' },
+  { id: 'shell-app',        name: 'Shell Service App',       subtitle: 'Free access to Shell service tools',          tier: 'bronze', category: 'Transport', bg: '#E8890C', color: '#fff',
+    description: 'Free access to Shell\u2019s vehicle service and maintenance tools, including MOT reminders, tyre checks, and nearest garage finder.',
+    type: 'link', link: '#', linkText: 'Open Shell Service App', market: 'UK' },
+  { id: 'grocery-voucher',  name: 'Grocery Vouchers',        subtitle: 'Discounted grocery partner vouchers',         tier: 'bronze', category: 'Food',      bg: '#5B8C5A', color: '#fff',
+    description: 'Discounted vouchers for grocery partners including Sainsbury\u2019s, Waitrose, and Co-op. Save on your weekly shop.',
+    code: 'ROOGROCERY10', instructions: 'Show this code at checkout or enter it online.', type: 'coupon', market: 'UK' },
+  { id: 'friends-family',   name: 'Friends & Family Offers', subtitle: 'Exclusive partner discounts for you & family',tier: 'bronze', category: 'Deals',     bg: '#FDE74C', color: '#2E3333',
+    description: 'Share exclusive discounts with friends and family across a range of high-street and online partners.',
+    code: 'ROOFF20', instructions: 'Share this code with friends and family to use at checkout.', type: 'coupon', market: 'UK' },
   // silver
-  { id: 'fuel-silver',      name: 'Shell Fuel Cashback+',    subtitle: '4–7% cashback on fuel purchases',             tier: 'silver', category: 'Transport', bg: '#FDE74C', color: '#2E3333' },
-  { id: 'vue',              name: 'Vue Cinema',              subtitle: 'Up to 35% off cinema tickets',                tier: 'silver', category: 'Deals',     bg: '#1B3A4B', color: '#fff' },
-  { id: 'duolingo',         name: 'Duolingo Plus',           subtitle: 'Free Duolingo Plus subscription',             tier: 'silver', category: 'Deals',     bg: '#58CC02', color: '#fff' },
-  { id: 'priority-support', name: 'Priority Support',        subtitle: 'Reduced wait times for rider support',        tier: 'silver', category: 'Deals',     bg: '#00CCBC', color: '#fff' },
-  { id: 'halfords',         name: 'Halfords Essentials',     subtitle: '15% off cycling and motoring essentials',     tier: 'silver', category: 'Transport', bg: '#2E3333', color: '#fff' },
-  { id: 'bikmo',            name: 'Bikmo Insurance',         subtitle: 'Discounted bike and e-bike insurance',        tier: 'silver', category: 'Insurance', bg: '#FDE74C', color: '#2E3333' },
+  { id: 'fuel-silver',      name: 'Shell Fuel Cashback+',    subtitle: '4–7% cashback on fuel purchases',             tier: 'silver', category: 'Transport', bg: '#FDE74C', color: '#2E3333',
+    description: 'Upgraded cashback of 4–7% on all Shell fuel purchases. Higher tier, higher rewards.',
+    code: 'ROOFUEL4', instructions: 'Ensure your Shell Go+ account is linked for automatic cashback.', type: 'coupon', market: 'UK' },
+  { id: 'vue',              name: 'Vue Cinema',              subtitle: 'Up to 35% off cinema tickets',                tier: 'silver', category: 'Deals',     bg: '#1B3A4B', color: '#fff',
+    description: 'Enjoy up to 35% off cinema tickets at any Vue location. Valid for standard and 3D screenings.',
+    code: 'ROOVUE35', instructions: 'Enter this code when booking tickets on myvue.com or in the Vue app.', type: 'coupon', market: 'UK' },
+  { id: 'duolingo',         name: 'Duolingo Plus',           subtitle: 'Free Duolingo Plus subscription',             tier: 'silver', category: 'Deals',     bg: '#58CC02', color: '#fff',
+    description: 'Learn a new language with a free Duolingo Plus subscription. Includes ad-free learning, offline access, and unlimited hearts.',
+    type: 'link', link: '#', linkText: 'Activate Duolingo Plus', market: 'UK' },
+  { id: 'priority-support', name: 'Priority Support',        subtitle: 'Reduced wait times for rider support',        tier: 'silver', category: 'Deals',     bg: '#00CCBC', color: '#fff',
+    description: 'Jump the queue when you need help. Silver tier riders get priority routing to support agents with reduced wait times.',
+    type: 'link', link: '#', linkText: 'Contact Priority Support', market: 'UK' },
+  { id: 'halfords',         name: 'Halfords Essentials',     subtitle: '15% off cycling and motoring essentials',     tier: 'silver', category: 'Transport', bg: '#2E3333', color: '#fff',
+    description: '15% off cycling gear, motoring essentials, and vehicle maintenance at Halfords stores and online.',
+    code: 'ROOHALF15', instructions: 'Show this code in-store or enter at halfords.com checkout.', type: 'coupon', market: 'UK' },
+  { id: 'bikmo',            name: 'Bikmo Insurance',         subtitle: 'Discounted bike and e-bike insurance',        tier: 'silver', category: 'Insurance', bg: '#FDE74C', color: '#2E3333',
+    description: 'Protect your ride with discounted bike and e-bike insurance from Bikmo. Covers theft, accidental damage, and personal injury.',
+    type: 'link', link: '#', linkText: 'Get a Bikmo quote', market: 'UK' },
   // gold
-  { id: 'fuel-gold',        name: 'Shell Fuel Cashback Pro', subtitle: '10%+ cashback on fuel purchases',             tier: 'gold',   category: 'Transport', bg: '#FDE74C', color: '#2E3333' },
-  { id: 'pension',          name: 'Pension Benefit',         subtitle: 'Waived admin fees on Smart Pension',          tier: 'gold',   category: 'Deals',     bg: '#5B8C5A', color: '#fff' },
-  { id: 'premium-kit',      name: 'Premium Kit',             subtitle: 'Free premium Deliveroo kit bundle',           tier: 'gold',   category: 'Deals',     bg: '#2E3333', color: '#fff' },
-  { id: 'first-look',       name: 'First Look Access',       subtitle: 'Pilot new features and focus groups',         tier: 'gold',   category: 'Deals',     bg: '#00CCBC', color: '#fff' },
-  { id: 'dispatch',         name: 'Dispatch Priority',       subtitle: 'Priority order assignment during peak hours',  tier: 'gold',   category: 'Deals',     bg: '#E84855', color: '#fff' },
-  { id: 'nero',             name: 'Caffè Nero Rewards',      subtitle: 'Free hot drink every week with Gold',          tier: 'gold',   category: 'Food',      bg: '#1B3A4B', color: '#fff' },
+  { id: 'fuel-gold',        name: 'Shell Fuel Cashback Pro', subtitle: '10%+ cashback on fuel purchases',             tier: 'gold',   category: 'Transport', bg: '#FDE74C', color: '#2E3333',
+    description: 'Our best fuel deal: 10%+ cashback on every Shell fuel purchase. Exclusively for Gold tier riders.',
+    code: 'ROOFUEL10', instructions: 'Cashback is applied automatically via your linked Shell Go+ account.', type: 'coupon', market: 'UK' },
+  { id: 'pension',          name: 'Pension Benefit',         subtitle: 'Waived admin fees on Smart Pension',          tier: 'gold',   category: 'Deals',     bg: '#5B8C5A', color: '#fff',
+    description: 'Gold riders get admin fees waived on Smart Pension contributions, helping you save more for the future.',
+    type: 'link', link: '#', linkText: 'Set up Smart Pension', market: 'UK' },
+  { id: 'premium-kit',      name: 'Premium Kit',             subtitle: 'Free premium Deliveroo kit bundle',           tier: 'gold',   category: 'Deals',     bg: '#2E3333', color: '#fff',
+    description: 'Receive a free premium Deliveroo kit bundle including a waterproof jacket, insulated bag, and reflective vest.',
+    code: 'ROOKITGOLD', instructions: 'Redeem this code on the Kit Store for your free bundle.', type: 'coupon', market: 'UK' },
+  { id: 'first-look',       name: 'First Look Access',       subtitle: 'Pilot new features and focus groups',         tier: 'gold',   category: 'Deals',     bg: '#00CCBC', color: '#fff',
+    description: 'Get early access to pilot new app features, join exclusive focus groups, and shape the future of the rider experience.',
+    type: 'link', link: '#', linkText: 'Join First Look', market: 'UK' },
+  { id: 'dispatch',         name: 'Dispatch Priority',       subtitle: 'Priority order assignment during peak hours',  tier: 'gold',   category: 'Deals',     bg: '#E84855', color: '#fff',
+    description: 'During peak hours, Gold riders receive priority order assignment \u2014 meaning shorter waits between deliveries and more earning potential.',
+    type: 'info', market: 'UK' },
+  { id: 'nero',             name: 'Caff\u00e8 Nero Rewards', subtitle: 'Free hot drink every week with Gold',          tier: 'gold',   category: 'Food',      bg: '#1B3A4B', color: '#fff',
+    description: 'Enjoy a free hot drink every week at any Caff\u00e8 Nero location. Simply show your Gold rider code.',
+    code: 'ROONERO', instructions: 'Show this code to the barista when ordering.', type: 'coupon', market: 'UK' },
 ];
 
 function getTier(points) {
@@ -588,7 +850,7 @@ function renderPerksGrid() {
   grid.innerHTML = perks.map(p => {
     const locked = TIERS.indexOf(p.tier) > riderTierIdx;
     return `
-      <div class="perk-card ${locked ? 'perk-card--locked' : ''}">
+      <div class="perk-card ${locked ? 'perk-card--locked' : ''}" onclick="openPerkModal('${p.id}')">`
         <div class="perk-card__img" style="background:${p.bg}; color:${p.color};">
           ${p.name}
           ${locked
@@ -626,6 +888,129 @@ function setScenario(scenario) {
       btn.textContent.toLowerCase() === scenario);
   });
 }
+
+/* ─── Perk Modal ─── */
+let modalCopiedTimer = null;
+
+function openPerkModal(perkId) {
+  const perk = PERKS.find(p => p.id === perkId);
+  if (!perk) return;
+
+  const points = SCENARIOS[currentScenario].points;
+  const riderTier = getTier(points);
+  const riderTierIdx = TIERS.indexOf(riderTier);
+  const locked = TIERS.indexOf(perk.tier) > riderTierIdx;
+
+  const img = document.getElementById('modalImage');
+  img.style.background = perk.bg;
+  img.style.color = perk.color;
+  img.textContent = perk.name;
+
+  const content = document.getElementById('modalContent');
+  let html = '';
+
+  if (perk.market) {
+    html += `<span class="modal__market-tag">${perk.market}</span>`;
+  }
+
+  html += `<h2 class="modal__title">${perk.name}</h2>`;
+
+  if (locked) {
+    html += `<div class="modal__voucher">
+      <p style="font-size:14px; color:var(--roo-grey-500); margin:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-3px; margin-right:6px;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+        Reach <strong>${tierLabel(perk.tier)}</strong> tier to unlock this perk
+      </p>
+    </div>`;
+  } else if (perk.type === 'coupon') {
+    html += `<div class="modal__voucher" id="modalVoucher">
+      <button class="modal__show-code-btn" onclick="revealCode('${perk.id}')">Show me the code</button>
+    </div>`;
+  } else if (perk.type === 'link') {
+    html += `<div class="modal__voucher" id="modalVoucher">
+      <button class="modal__show-code-btn" onclick="revealLink('${perk.id}')">Show me the code</button>
+    </div>`;
+  } else {
+    html += `<div class="modal__voucher">
+      <p style="font-size:14px; color:var(--roo-grey-500); margin:0;">This perk is applied automatically to your account.</p>
+    </div>`;
+  }
+
+  html += `<p class="modal__description">${perk.description}</p>`;
+  html += `<button class="modal__terms-toggle" onclick="toggleTerms()">
+    Terms and conditions
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="modal__terms" id="modalTerms" style="display:none;">
+    Offer subject to availability. Deliveroo reserves the right to withdraw or amend this perk at any time. Cannot be used in conjunction with other offers unless stated. Full terms available at deliveroo.co.uk/terms.
+  </div>`;
+
+  content.innerHTML = html;
+
+  document.getElementById('modalOverlay').classList.add('modal-overlay--open');
+  document.body.style.overflow = 'hidden';
+}
+
+function revealCode(perkId) {
+  const perk = PERKS.find(p => p.id === perkId);
+  if (!perk) return;
+
+  const voucher = document.getElementById('modalVoucher');
+  voucher.classList.add('modal__voucher--revealed');
+  let html = '';
+  if (perk.instructions) {
+    html += `<p class="modal__instructions">${perk.instructions}</p>`;
+  }
+  html += `<div class="modal__code-row">
+    <span class="modal__code">${perk.code}</span>
+    <button class="modal__copy-btn" id="copyBtn" onclick="copyCode('${perk.code}')">Copy</button>
+  </div>`;
+  voucher.innerHTML = html;
+}
+
+function revealLink(perkId) {
+  const perk = PERKS.find(p => p.id === perkId);
+  if (!perk) return;
+
+  const voucher = document.getElementById('modalVoucher');
+  voucher.classList.add('modal__voucher--revealed');
+  let html = '';
+  if (perk.instructions) {
+    html += `<p class="modal__instructions">${perk.instructions}</p>`;
+  }
+  html += `<a href="${perk.link}" class="modal__link">${perk.linkText || 'Open link'} →</a>`;
+  voucher.innerHTML = html;
+}
+
+function copyCode(code) {
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById('copyBtn');
+    if (btn) {
+      btn.textContent = 'Copied!';
+      btn.classList.add('modal__copy-btn--copied');
+      if (modalCopiedTimer) clearTimeout(modalCopiedTimer);
+      modalCopiedTimer = setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('modal__copy-btn--copied');
+      }, 2000);
+    }
+  });
+}
+
+function toggleTerms() {
+  const terms = document.getElementById('modalTerms');
+  if (terms) terms.style.display = terms.style.display === 'none' ? 'block' : 'none';
+}
+
+function closePerkModal(event) {
+  if (event && event.target && event.target !== document.getElementById('modalOverlay')) return;
+  document.getElementById('modalOverlay').classList.remove('modal-overlay--open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePerkModal();
+});
 
 // Init
 setScenario('bronze');
