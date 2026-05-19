@@ -602,6 +602,9 @@
 
   <h1 class="page-title">Perks</h1>
 
+  <!-- ===== DEAL OF THE MONTH ===== -->
+  <div id="dealOfMonth"></div>
+
   <!-- 1. Tier overview -->
   <div class="tier-status" id="tierStatus"></div>
 
@@ -610,15 +613,6 @@
   <div class="tier-tabs" id="tierTabs"></div>
   <div class="category-filters" id="categoryFilters"></div>
   <div class="perks-grid" id="perksGrid"></div>
-
-  <!-- ===== DIVIDER ===== -->
-  <div style="height:1px; background:var(--roo-grey-100); margin:32px 0;"></div>
-
-  <!-- ===== DEAL OF THE MONTH ===== -->
-  <div id="dealOfMonth"></div>
-
-  <!-- ===== EXISTING PERKS LIST ===== -->
-  <div id="cmsPerksSection"></div>
 
   <div class="content-spacer"></div>
 </div>
@@ -730,41 +724,6 @@ const DEAL_OF_MONTH = {
   description: 'Complete your first delivery this month and earn bonus points. The faster you start, the more you earn.',
   type: 'link', link: '#', linkText: 'Find out more', market: 'UK',
 };
-
-const CMS_PERKS = [
-  { id: 'cms-city-guilds',   name: 'City & Guilds',               subtitle: 'Free professional qualification with educational partner',  category: 'Education', bg: '#fff', color: '#2E3333', imgText: 'City & Guilds',
-    description: 'Gain a free City & Guilds qualification while you ride. Choose from food safety, first aid, and more.', type: 'link', link: '#', linkText: 'Start your qualification', market: 'UK' },
-  { id: 'cms-friends',       name: 'Friends & Family Offers',      subtitle: 'Exclusive partner discounts for friends and family',         category: 'Deals',     bg: '#FDE74C', color: '#2E3333', imgText: 'Friends and family offers',
-    description: 'Share exclusive discounts with friends and family across a range of high-street and online partners.', code: 'ROOFF20', instructions: 'Share this code at checkout.', type: 'coupon', market: 'UK' },
-  { id: 'cms-seoul-born',    name: 'Seoul Born',                   subtitle: 'Korean street food offers for riders',                      category: 'Food',      bg: '#E84855', color: '#fff', imgText: 'Seoul Born offers',
-    description: 'Enjoy exclusive discounts on Korean street food at Seoul Born locations nationwide.', code: 'ROOSB20', instructions: 'Show this code when ordering.', type: 'coupon', market: 'UK' },
-  { id: 'cms-cottage',       name: 'Cottage Delight Kitchen',      subtitle: 'Artisan food partner discounts',                            category: 'Food',      bg: '#5B8C5A', color: '#fff', imgText: 'Cottage Delight Kitchen',
-    description: 'Discounts on artisan preserves, chutneys, and hampers from Cottage Delight.', code: 'ROOCDK15', instructions: 'Use this code online at cottagelight.co.uk.', type: 'coupon', market: 'UK' },
-  { id: 'cms-halfords',      name: 'Halfords',                     subtitle: '15% off cycling and motoring essentials',                   category: 'Transport', bg: '#2E3333', color: '#fff', imgText: 'Halfords essentials',
-    description: '15% off cycling gear, motoring essentials, and vehicle maintenance at Halfords.', code: 'ROOHALF15', instructions: 'Show code in-store or enter at halfords.com.', type: 'coupon', market: 'UK' },
-  { id: 'cms-bikmo',         name: 'Bikmo Insurance',              subtitle: 'Discounted bike and e-bike insurance',                      category: 'Insurance', bg: '#FDE74C', color: '#2E3333', imgText: 'Bikmo',
-    description: 'Protect your ride with discounted insurance from Bikmo. Covers theft, accidental damage, and more.', type: 'link', link: '#', linkText: 'Get a Bikmo quote', market: 'UK' },
-  { id: 'cms-phone-mount',   name: 'Free Phone Mount',             subtitle: 'Free universal phone mount for your bike or scooter',       category: 'Transport', bg: '#00CCBC', color: '#fff', imgText: 'Free phone mount',
-    description: 'Claim a free universal phone mount to keep your device secure while riding.', code: 'ROOPHONE', instructions: 'Redeem this code on the Kit Store.', type: 'coupon', market: 'UK' },
-  { id: 'cms-nero',          name: 'Caffè Nero',                   subtitle: 'Rewards and discounts at Caffè Nero',                       category: 'Food',      bg: '#1B3A4B', color: '#fff', imgText: 'Caffè Nero',
-    description: 'Hot drink discounts and loyalty rewards at any Caffè Nero location.', code: 'ROONERO', instructions: 'Show this code to the barista.', type: 'coupon', market: 'UK' },
-  { id: 'cms-lease',         name: 'Lease a New E-Bike',           subtitle: 'Affordable e-bike leasing with monthly payments',           category: 'Transport', bg: '#2E3333', color: '#fff', imgText: 'Lease a new e-bike',
-    description: 'Affordable monthly e-bike leasing. Includes maintenance, insurance, and roadside assistance.', type: 'link', link: '#', linkText: 'See leasing options', market: 'UK' },
-  { id: 'cms-swapfiets',     name: 'Swapfiets',                    subtitle: 'Bike subscription service with repairs included',           category: 'Transport', bg: '#00CCBC', color: '#fff', imgText: 'Swapfiets bike subscription',
-    description: 'All-inclusive bike subscription. If it breaks, they fix it or swap it — included in the price.', type: 'link', link: '#', linkText: 'Subscribe with Swapfiets', market: 'UK' },
-  { id: 'cms-motorbike',     name: 'Motorbike Offers',             subtitle: 'Exclusive deals on motorbike gear and accessories',          category: 'Transport', bg: '#2E3333', color: '#fff', imgText: 'Motorbike offers',
-    description: 'Exclusive discounts on helmets, gloves, jackets, and maintenance for motorbike riders.', code: 'ROOMOTO20', instructions: 'Use online or show in-store.', type: 'coupon', market: 'UK' },
-  { id: 'cms-bikmo2',        name: 'Bikmo Protection',             subtitle: 'Extended protection for your bike',                         category: 'Insurance', bg: '#FDE74C', color: '#2E3333', imgText: 'Bikmo protection',
-    description: 'Extended bike protection covering worldwide travel, racing, and commuting.', type: 'link', link: '#', linkText: 'Get protected', market: 'UK' },
-  { id: 'cms-scooter',       name: 'Scooter Essentials',           subtitle: 'Discounts on scooter maintenance and accessories',           category: 'Transport', bg: '#5B8C5A', color: '#fff', imgText: 'Scooter essentials',
-    description: 'Discounts on scooter servicing, tyres, and accessories from our partners.', code: 'ROOSCOOT', instructions: 'Show code at partner locations.', type: 'coupon', market: 'UK' },
-  { id: 'cms-mym',           name: 'MYM Vouchers',                 subtitle: 'Restaurant vouchers and food discounts',                    category: 'Food',      bg: '#E84855', color: '#fff', imgText: 'MYM vouchers',
-    description: 'Discounted restaurant vouchers from a wide range of partner restaurants.', code: 'ROOMYM25', instructions: 'Present code when ordering.', type: 'coupon', market: 'UK' },
-];
-
-const CMS_CATEGORIES = ['All', 'Deals', 'Food', 'Transport', 'Insurance', 'Education'];
-
-let selectedCmsCategory = 'All';
 
 function getTier(points) {
   if (points >= 500) return 'gold';
@@ -946,18 +905,16 @@ function renderDealOfMonth() {
   const d = DEAL_OF_MONTH;
   document.getElementById('dealOfMonth').innerHTML = `
     <h2 class="section-heading">Deal of the month</h2>
-    <div class="perks-grid" style="grid-template-columns:1fr; margin-bottom:32px;">
-      <div class="perk-card" style="max-width:360px;" onclick="openDealModal()">
-        <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
-          ${d.name}
-          <span class="perk-card__badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          </span>
-        </div>
-        <div class="perk-card__body">
-          <span class="perk-card__title">${d.name}</span>
-          <span class="perk-card__subtitle">${d.subtitle}</span>
-        </div>
+    <div class="perk-card" onclick="openDealModal()" style="cursor:pointer;">
+      <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
+        ${d.name}
+        <span class="perk-card__badge">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </span>
+      </div>
+      <div class="perk-card__body">
+        <span class="perk-card__title">${d.name}</span>
+        <span class="perk-card__subtitle">${d.subtitle}</span>
       </div>
     </div>`;
 }
@@ -982,93 +939,6 @@ function openDealModal() {
   document.body.style.overflow = 'hidden';
 }
 
-/* ─── CMS Perks List ─── */
-function renderCmsPerksSection() {
-  const filtered = selectedCmsCategory === 'All'
-    ? CMS_PERKS
-    : CMS_PERKS.filter(p => p.category === selectedCmsCategory);
-
-  document.getElementById('cmsPerksSection').innerHTML = `
-    <h2 class="section-heading">Perks list</h2>
-    <div class="category-filters">
-      ${CMS_CATEGORIES.map(c =>
-        `<button class="category-btn ${c === selectedCmsCategory ? 'category-btn--active' : ''}" onclick="selectCmsCategory('${c}')">${c}</button>`
-      ).join('')}
-    </div>
-    <div class="perks-grid">
-      ${filtered.map(p => `
-        <div class="perk-card" onclick="openCmsPerkModal('${p.id}')">
-          <div class="perk-card__img" style="background:${p.bg}; color:${p.color};">
-            ${p.imgText}
-            <span class="perk-card__badge">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-          </div>
-          <div class="perk-card__body">
-            <span class="perk-card__title">${p.name}</span>
-            <span class="perk-card__subtitle">${p.subtitle}</span>
-          </div>
-        </div>
-      `).join('')}
-    </div>`;
-}
-
-function selectCmsCategory(cat) {
-  selectedCmsCategory = cat;
-  renderCmsPerksSection();
-}
-
-function openCmsPerkModal(perkId) {
-  const perk = CMS_PERKS.find(p => p.id === perkId);
-  if (!perk) return;
-
-  const img = document.getElementById('modalImage');
-  img.style.background = perk.bg;
-  img.style.color = perk.color;
-  img.textContent = perk.imgText;
-
-  const content = document.getElementById('modalContent');
-  let html = '';
-  if (perk.market) html += `<span class="modal__market-tag">${perk.market}</span>`;
-  html += `<h2 class="modal__title">${perk.name}</h2>`;
-
-  if (perk.type === 'coupon') {
-    html += `<div class="modal__voucher" id="modalVoucher">
-      <button class="modal__show-code-btn" onclick="revealCmsCode('${perk.id}')">Show me the code</button>
-    </div>`;
-  } else if (perk.type === 'link') {
-    html += `<div class="modal__voucher">
-      <a href="${perk.link}" class="modal__link">${perk.linkText || 'Open link'} →</a>
-    </div>`;
-  }
-
-  html += `<p class="modal__description">${perk.description}</p>`;
-  html += `<button class="modal__terms-toggle" onclick="toggleTerms()">
-    Terms and conditions
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-  </button>
-  <div class="modal__terms" id="modalTerms" style="display:none;">
-    Offer subject to availability. Deliveroo reserves the right to withdraw or amend this perk at any time. Cannot be used in conjunction with other offers unless stated. Full terms available at deliveroo.co.uk/terms.
-  </div>`;
-
-  content.innerHTML = html;
-  document.getElementById('modalOverlay').classList.add('modal-overlay--open');
-  document.body.style.overflow = 'hidden';
-}
-
-function revealCmsCode(perkId) {
-  const perk = CMS_PERKS.find(p => p.id === perkId);
-  if (!perk) return;
-  const voucher = document.getElementById('modalVoucher');
-  voucher.classList.add('modal__voucher--revealed');
-  let html = '';
-  if (perk.instructions) html += `<p class="modal__instructions">${perk.instructions}</p>`;
-  html += `<div class="modal__code-row">
-    <span class="modal__code">${perk.code}</span>
-    <button class="modal__copy-btn" id="copyBtn" onclick="copyCode('${perk.code}')">Copy</button>
-  </div>`;
-  voucher.innerHTML = html;
-}
 
 /* ─── Perk Modal ─── */
 let modalCopiedTimer = null;
@@ -1195,7 +1065,6 @@ document.addEventListener('keydown', (e) => {
 
 // Init
 renderDealOfMonth();
-renderCmsPerksSection();
 setScenario('bronze');
 </script>
 </body>
