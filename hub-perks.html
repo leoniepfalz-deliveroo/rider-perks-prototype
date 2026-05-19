@@ -37,7 +37,7 @@
     min-height: 100vh;
   }
 
-  /* ===== HEADER (matches rider hub) ===== */
+  /* ===== HEADER ===== */
   .hub-header {
     background: var(--roo-dark);
     display: flex;
@@ -48,16 +48,10 @@
     top: 0;
     z-index: 50;
   }
-
-  .hub-header__logo {
-    height: 28px;
-    display: flex;
-    align-items: center;
-  }
-
+  .hub-header__logo { height: 28px; display: flex; align-items: center; }
   .hub-header__logo svg { height: 28px; width: auto; }
 
-  /* ===== MAIN CONTAINER (matches bare-layout card) ===== */
+  /* ===== MAIN CONTAINER ===== */
   .hub-main {
     max-width: 768px;
     margin: 24px auto;
@@ -67,10 +61,7 @@
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     padding: 32px 24px;
   }
-
-  @media (max-width: 800px) {
-    .hub-main { margin: 16px; }
-  }
+  @media (max-width: 800px) { .hub-main { margin: 16px; } }
 
   /* ===== BACK LINK ===== */
   .back-link {
@@ -83,10 +74,8 @@
     font-weight: 500;
     margin-bottom: 8px;
   }
-
   .back-link:hover { text-decoration: underline; }
 
-  /* ===== PAGE HEADING ===== */
   .page-title {
     font-size: 24px;
     font-weight: 700;
@@ -100,16 +89,14 @@
     color: var(--roo-white);
     border-radius: var(--roo-radius);
     padding: 20px;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
   }
-
   .tier-status__header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: 16px;
   }
-
   .tier-status__label {
     font-size: 12px;
     font-weight: 500;
@@ -118,53 +105,25 @@
     opacity: 0.8;
     margin-bottom: 2px;
   }
+  .tier-status__name { font-size: 24px; font-weight: 700; line-height: 1.2; }
+  .tier-status__points { display: flex; align-items: baseline; gap: 4px; }
+  .tier-status__points-value { font-size: 22px; font-weight: 700; }
+  .tier-status__points-label { font-size: 14px; opacity: 0.8; }
 
-  .tier-status__name {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.2;
-  }
-
-  .tier-status__points {
-    text-align: right;
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-  }
-
-  .tier-status__points-value {
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .tier-status__points-label {
-    font-size: 14px;
-    opacity: 0.8;
-  }
-
-  /* Progress bar */
   .progress-container { position: relative; margin-bottom: 14px; }
-
   .progress-track {
     height: 6px;
     background: rgba(0,0,0,0.15);
     border-radius: 3px;
     overflow: hidden;
   }
-
   .progress-fill {
     height: 100%;
     background: var(--roo-white);
     border-radius: 3px;
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
   }
-
-  .progress-markers {
-    position: relative;
-    height: 28px;
-    margin-top: -3px;
-  }
-
+  .progress-markers { position: relative; height: 28px; margin-top: -3px; }
   .progress-marker {
     position: absolute;
     transform: translateX(-50%);
@@ -172,27 +131,15 @@
     flex-direction: column;
     align-items: center;
   }
-
   .progress-marker__dot {
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 10px; height: 10px;
     border-radius: 50%;
     background: rgba(0,0,0,0.2);
     border: 2px solid var(--roo-teal);
   }
-
-  .progress-marker__dot--reached {
-    background: var(--roo-white);
-  }
-
-  .progress-marker__label {
-    font-size: 10px;
-    opacity: 0.7;
-    margin-top: 3px;
-  }
-
-  /* Footer */
+  .progress-marker__dot--reached { background: var(--roo-white); }
+  .progress-marker__label { font-size: 10px; opacity: 0.7; margin-top: 3px; }
   .tier-status__footer {
     display: flex;
     align-items: center;
@@ -200,14 +147,8 @@
     flex-wrap: wrap;
     gap: 8px;
   }
-
-  .tier-status__next {
-    font-size: 13px;
-    opacity: 0.85;
-  }
-
+  .tier-status__next { font-size: 13px; opacity: 0.85; }
   .tier-status__next strong { font-weight: 700; color: var(--roo-white); }
-
   .tier-status__reset {
     display: inline-flex;
     align-items: center;
@@ -217,108 +158,48 @@
     white-space: nowrap;
   }
 
-  .tier-status__reset svg { flex-shrink: 0; }
-
-  /* ===== TIER PERKS SECTIONS ===== */
-  .tier-perks { margin-bottom: 8px; }
-
-  .tier-perks__section { margin-bottom: 24px; }
-
-  .tier-perks__heading {
+  /* ===== SECTION HEADING ===== */
+  .section-heading {
     font-size: 18px;
     font-weight: 700;
     color: var(--roo-grey-900);
-    margin-bottom: 4px;
-  }
-
-  .tier-perks__subtext {
-    font-size: 14px;
-    color: var(--roo-grey-500);
     margin-bottom: 16px;
   }
 
-  .tier-perks__grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  @media (max-width: 560px) {
-    .tier-perks__grid { grid-template-columns: 1fr; }
-  }
-
-  /* Perk card (tier) */
-  .tier-perk-card {
+  /* ===== TIER TABS ===== */
+  .tier-tabs {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    background: var(--roo-white);
-    border: 1px solid var(--roo-grey-100);
-    border-radius: var(--roo-radius-sm);
-    padding: 14px;
-    transition: box-shadow 0.2s ease;
+    border-bottom: 1px solid var(--roo-grey-100);
+    margin-bottom: 20px;
+    gap: 0;
   }
-
-  .tier-perk-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  .tier-perk-card--locked { opacity: 0.55; }
-
-  .tier-perk-card__icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--roo-radius-sm);
-    background: #E6FAF8;
+  .tier-tab {
+    flex: 1;
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--roo-grey-500);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
+    gap: 6px;
+    font-family: var(--font);
   }
-
-  .tier-perk-card--locked .tier-perk-card__icon { background: var(--roo-grey-50); }
-
-  .tier-perk-card__body { flex: 1; min-width: 0; }
-
-  .tier-perk-card__name {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
+  .tier-tab:hover { color: var(--roo-grey-700); }
+  .tier-tab--active {
     color: var(--roo-grey-900);
-    line-height: 1.3;
+    border-bottom-color: var(--roo-teal);
   }
-
-  .tier-perk-card__detail {
-    display: block;
-    font-size: 12px;
-    color: var(--roo-grey-500);
-    line-height: 1.3;
-    margin-top: 2px;
-  }
-
-  .tier-perk-card__check {
+  .tier-tab__dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
     flex-shrink: 0;
-    color: var(--roo-teal);
-  }
-
-  .tier-perk-card__lock {
-    flex-shrink: 0;
-    color: var(--roo-grey-300);
-  }
-
-  /* ===== DIVIDER ===== */
-  .section-divider {
-    height: 1px;
-    background: var(--roo-grey-100);
-    margin: 8px 0 24px;
-  }
-
-  /* ===== PERK OF THE MONTH ===== */
-  .potm-section { margin-bottom: 32px; }
-
-  .potm-heading {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--roo-grey-900);
-    margin-bottom: 16px;
   }
 
   /* ===== CATEGORY FILTERS ===== */
@@ -328,7 +209,6 @@
     flex-wrap: wrap;
     margin-bottom: 24px;
   }
-
   .category-btn {
     padding: 8px 16px;
     border: 1px solid var(--roo-grey-100);
@@ -344,34 +224,30 @@
     transition: all 0.15s;
     font-family: var(--font);
   }
-
   .category-btn:hover { border-color: var(--roo-grey-300); }
-
   .category-btn--active {
     background: var(--roo-teal);
     color: var(--roo-white);
     border-color: var(--roo-teal);
   }
 
-  /* ===== PERKS LIST (CMS-driven, matches hub) ===== */
-  .perks-list-heading {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--roo-grey-900);
-    margin-bottom: 16px;
-  }
-
+  /* ===== PERKS GRID ===== */
   .perks-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    margin-bottom: 40px;
+  }
+  @media (max-width: 560px) { .perks-grid { grid-template-columns: 1fr; } }
+
+  .perks-grid--empty {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 40px 0;
+    color: var(--roo-grey-500);
+    font-size: 14px;
   }
 
-  @media (max-width: 560px) {
-    .perks-grid { grid-template-columns: 1fr; }
-  }
-
+  /* ===== PERK CARD (hub-style with image, title, subtitle, tick) ===== */
   .perk-card {
     border-radius: var(--roo-radius-sm);
     overflow: hidden;
@@ -379,43 +255,82 @@
     cursor: pointer;
     transition: box-shadow 0.2s ease;
     background: var(--roo-white);
+    position: relative;
   }
-
   .perk-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .perk-card--locked { opacity: 0.5; }
 
   .perk-card__img {
     width: 100%;
-    aspect-ratio: 16/10;
-    object-fit: cover;
-    display: block;
-    background: var(--roo-grey-100);
+    aspect-ratio: 16 / 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 20px;
+    text-align: center;
+    line-height: 1.3;
+    position: relative;
+  }
+
+  .perk-card__badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--roo-teal);
+    color: var(--roo-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  }
+
+  .perk-card__badge--lock {
+    background: var(--roo-grey-300);
   }
 
   .perk-card__body { padding: 12px 16px 16px; }
 
   .perk-card__title {
+    display: block;
     font-size: 14px;
     font-weight: 600;
     color: var(--roo-grey-900);
     line-height: 1.3;
+    margin-bottom: 3px;
   }
 
-  /* ===== FOOTER ===== */
-  .hub-footer {
-    max-width: 768px;
-    margin: 0 auto 40px;
-    padding: 0 24px;
-    text-align: center;
+  .perk-card__subtitle {
+    display: block;
     font-size: 12px;
     color: var(--roo-grey-500);
+    line-height: 1.4;
   }
+
+  /* ===== TIER BADGE ON LOCKED CARDS ===== */
+  .perk-card__tier-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .perk-card__tier-label--bronze { background: var(--roo-bronze-bg); color: var(--roo-bronze); }
+  .perk-card__tier-label--silver { background: var(--roo-silver-bg); color: var(--roo-silver); }
+  .perk-card__tier-label--gold { background: var(--roo-gold-bg); color: var(--roo-gold); }
 
   /* ===== DEMO SWITCHER ===== */
   .demo-switcher {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     background: var(--roo-white);
     border-top: 1px solid var(--roo-grey-100);
     padding: 12px 16px;
@@ -426,36 +341,29 @@
     justify-content: center;
     gap: 16px;
   }
-
   .demo-switcher__label {
-    font-size: 11px;
-    font-weight: 600;
+    font-size: 11px; font-weight: 600;
     color: var(--roo-grey-500);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     white-space: nowrap;
   }
-
   .demo-switcher__buttons { display: flex; gap: 8px; }
-
   .demo-switcher__btn {
     padding: 8px 14px;
     border: 2px solid var(--roo-grey-100);
     border-radius: var(--roo-radius-sm);
     background: var(--roo-white);
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: var(--roo-grey-700);
     cursor: pointer;
     font-family: var(--font);
   }
-
   .demo-switcher__btn--active {
     border-color: var(--roo-teal);
     color: var(--roo-teal);
     background: #F0FFFE;
   }
-
   .content-spacer { height: 64px; }
 </style>
 </head>
@@ -473,42 +381,19 @@
 
 <!-- Main content card -->
 <div class="hub-main">
-  <!-- Back link -->
   <a href="#" class="back-link">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
   </a>
 
-  <!-- Page title -->
   <h1 class="page-title">Perks</h1>
 
-  <!-- ===== TIER STATUS ===== -->
+  <!-- 1. Tier overview -->
   <div class="tier-status" id="tierStatus"></div>
 
-  <!-- ===== TIER PERKS ===== -->
-  <div class="tier-perks" id="tierPerks"></div>
-
-  <div class="section-divider"></div>
-
-  <!-- ===== PERK OF THE MONTH (kept from CMS) ===== -->
-  <div class="potm-section">
-    <h3 class="potm-heading">Deal of the month</h3>
-    <div class="perks-grid" style="grid-template-columns: 1fr;">
-      <div class="perk-card" style="max-width: 360px;">
-        <div class="perk-card__img" style="background: linear-gradient(135deg, #00CCBC 0%, #00A396 100%); display:flex; align-items:center; justify-content:center; color:white; font-size:18px; font-weight:700; padding:24px; text-align:center;">
-          Featured Partner Offer
-        </div>
-        <div class="perk-card__body">
-          <span class="perk-card__title">This month's exclusive deal for riders</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== CATEGORY FILTERS ===== -->
+  <!-- 2. Your perks (tabs + category filters + grid) -->
+  <h2 class="section-heading">Your perks</h2>
+  <div class="tier-tabs" id="tierTabs"></div>
   <div class="category-filters" id="categoryFilters"></div>
-
-  <!-- ===== PERKS LIST (CMS perks) ===== -->
-  <h3 class="perks-list-heading">Perks list</h3>
   <div class="perks-grid" id="perksGrid"></div>
 
   <div class="content-spacer"></div>
@@ -517,7 +402,7 @@
 <!-- Demo Switcher -->
 <div class="demo-switcher">
   <div class="demo-switcher__label">Demo: Switch rider tier</div>
-  <div class="demo-switcher__buttons" id="demoButtons">
+  <div class="demo-switcher__buttons">
     <button class="demo-switcher__btn" onclick="setScenario('new')">New</button>
     <button class="demo-switcher__btn" onclick="setScenario('bronze')">Bronze</button>
     <button class="demo-switcher__btn" onclick="setScenario('silver')">Silver</button>
@@ -529,6 +414,9 @@
 const TIERS = ['base', 'bronze', 'silver', 'gold'];
 const TIER_THRESHOLDS = { base: 0, bronze: 100, silver: 250, gold: 500 };
 const TIER_MAX = 500;
+const TIER_DOT_COLORS = {
+  base: '#8A8F8F', bronze: '#C17F4E', silver: '#8A9BAE', gold: '#D4A853',
+};
 
 const SCENARIOS = {
   new:    { points: 75 },
@@ -537,35 +425,32 @@ const SCENARIOS = {
   gold:   { points: 525 },
 };
 
-const TIER_PERKS = [
-  { id: 'kit-store',       name: 'Kit Store',               detail: 'Standard discounts on Deliveroo kit',       tier: 'base',   icon: '👕' },
-  { id: 'perks-hub',       name: 'Perks Hub Access',        detail: 'Browse all available rider perks',          tier: 'base',   icon: '📱' },
-  { id: 'fuel-bronze',     name: 'Shell Fuel Cashback',     detail: '1–3% cashback on fuel purchases',          tier: 'bronze', icon: '⛽' },
-  { id: 'shell-app',       name: 'Shell Service App',       detail: 'Free access to Shell service tools',       tier: 'bronze', icon: '🔧' },
-  { id: 'grocery-voucher', name: 'Grocery Vouchers',        detail: 'Discounted grocery partner vouchers',      tier: 'bronze', icon: '🛒' },
-  { id: 'fuel-silver',     name: 'Shell Fuel Cashback+',    detail: '4–7% cashback on fuel purchases',          tier: 'silver', icon: '⛽' },
-  { id: 'vue',             name: 'Vue Cinema',              detail: 'Up to 35% off cinema tickets',             tier: 'silver', icon: '🎬' },
-  { id: 'duolingo',        name: 'Duolingo Plus',           detail: 'Free Duolingo Plus subscription',          tier: 'silver', icon: '📚' },
-  { id: 'priority-support',name: 'Priority Support',        detail: 'Reduced wait times for rider support',     tier: 'silver', icon: '💬' },
-  { id: 'fuel-gold',       name: 'Shell Fuel Cashback Pro', detail: '10%+ cashback on fuel purchases',          tier: 'gold',   icon: '⛽' },
-  { id: 'pension',         name: 'Pension Benefit',         detail: 'Waived admin fees on Smart Pension',       tier: 'gold',   icon: '🐷' },
-  { id: 'premium-kit',     name: 'Premium Kit',             detail: 'Free premium Deliveroo kit bundle',        tier: 'gold',   icon: '👕' },
-  { id: 'first-look',      name: 'First Look Access',       detail: 'Pilot new features and focus groups',      tier: 'gold',   icon: '📱' },
-  { id: 'dispatch',        name: 'Dispatch Priority',       detail: 'Priority order assignment during peak',    tier: 'gold',   icon: '🚀' },
-];
+const CATEGORIES = ['All', 'Deals', 'Food', 'Transport', 'Insurance'];
 
-const CMS_PERKS = [
-  { title: 'City & Guilds free qualification', color: '#fff', bg: '#2E3333' },
-  { title: 'Friends and family offers',        color: '#2E3333', bg: '#FDE74C' },
-  { title: 'Seoul Born offers',                color: '#fff', bg: '#E84855' },
-  { title: 'Cottage Delight Kitchen',          color: '#fff', bg: '#5B8C5A' },
-  { title: 'Bikmo insurance discount',         color: '#2E3333', bg: '#FDE74C' },
-  { title: 'Free phone mount',                 color: '#fff', bg: '#00CCBC' },
-  { title: 'Halfords cycling essentials',       color: '#fff', bg: '#2E3333' },
-  { title: 'Caffè Nero rewards',               color: '#fff', bg: '#1B3A4B' },
+const PERKS = [
+  // base
+  { id: 'kit-store',        name: 'Kit Store',               subtitle: 'Standard discounts on Deliveroo kit',         tier: 'base',   category: 'Deals',     bg: '#2E3333', color: '#fff' },
+  { id: 'perks-hub',        name: 'Perks Hub Access',        subtitle: 'Browse all available rider perks',            tier: 'base',   category: 'Deals',     bg: '#00CCBC', color: '#fff' },
+  // bronze
+  { id: 'fuel-bronze',      name: 'Shell Fuel Cashback',     subtitle: '1–3% cashback on fuel purchases',             tier: 'bronze', category: 'Transport', bg: '#FDE74C', color: '#2E3333' },
+  { id: 'shell-app',        name: 'Shell Service App',       subtitle: 'Free access to Shell service tools',          tier: 'bronze', category: 'Transport', bg: '#E8890C', color: '#fff' },
+  { id: 'grocery-voucher',  name: 'Grocery Vouchers',        subtitle: 'Discounted grocery partner vouchers',         tier: 'bronze', category: 'Food',      bg: '#5B8C5A', color: '#fff' },
+  { id: 'friends-family',   name: 'Friends & Family Offers', subtitle: 'Exclusive partner discounts for you & family',tier: 'bronze', category: 'Deals',     bg: '#FDE74C', color: '#2E3333' },
+  // silver
+  { id: 'fuel-silver',      name: 'Shell Fuel Cashback+',    subtitle: '4–7% cashback on fuel purchases',             tier: 'silver', category: 'Transport', bg: '#FDE74C', color: '#2E3333' },
+  { id: 'vue',              name: 'Vue Cinema',              subtitle: 'Up to 35% off cinema tickets',                tier: 'silver', category: 'Deals',     bg: '#1B3A4B', color: '#fff' },
+  { id: 'duolingo',         name: 'Duolingo Plus',           subtitle: 'Free Duolingo Plus subscription',             tier: 'silver', category: 'Deals',     bg: '#58CC02', color: '#fff' },
+  { id: 'priority-support', name: 'Priority Support',        subtitle: 'Reduced wait times for rider support',        tier: 'silver', category: 'Deals',     bg: '#00CCBC', color: '#fff' },
+  { id: 'halfords',         name: 'Halfords Essentials',     subtitle: '15% off cycling and motoring essentials',     tier: 'silver', category: 'Transport', bg: '#2E3333', color: '#fff' },
+  { id: 'bikmo',            name: 'Bikmo Insurance',         subtitle: 'Discounted bike and e-bike insurance',        tier: 'silver', category: 'Insurance', bg: '#FDE74C', color: '#2E3333' },
+  // gold
+  { id: 'fuel-gold',        name: 'Shell Fuel Cashback Pro', subtitle: '10%+ cashback on fuel purchases',             tier: 'gold',   category: 'Transport', bg: '#FDE74C', color: '#2E3333' },
+  { id: 'pension',          name: 'Pension Benefit',         subtitle: 'Waived admin fees on Smart Pension',          tier: 'gold',   category: 'Deals',     bg: '#5B8C5A', color: '#fff' },
+  { id: 'premium-kit',      name: 'Premium Kit',             subtitle: 'Free premium Deliveroo kit bundle',           tier: 'gold',   category: 'Deals',     bg: '#2E3333', color: '#fff' },
+  { id: 'first-look',       name: 'First Look Access',       subtitle: 'Pilot new features and focus groups',         tier: 'gold',   category: 'Deals',     bg: '#00CCBC', color: '#fff' },
+  { id: 'dispatch',         name: 'Dispatch Priority',       subtitle: 'Priority order assignment during peak hours',  tier: 'gold',   category: 'Deals',     bg: '#E84855', color: '#fff' },
+  { id: 'nero',             name: 'Caffè Nero Rewards',      subtitle: 'Free hot drink every week with Gold',          tier: 'gold',   category: 'Food',      bg: '#1B3A4B', color: '#fff' },
 ];
-
-const CATEGORIES = ['All', 'Deals', 'Food', 'Transport', 'Insurance', 'Education'];
 
 function getTier(points) {
   if (points >= 500) return 'gold';
@@ -573,24 +458,23 @@ function getTier(points) {
   if (points >= 100) return 'bronze';
   return 'base';
 }
-
 function tierLabel(t) {
   return t === 'base' ? 'Base' : t.charAt(0).toUpperCase() + t.slice(1);
 }
-
 function getNextTier(tier) {
   const i = TIERS.indexOf(tier);
   return i < TIERS.length - 1 ? TIERS[i + 1] : null;
 }
-
 function daysUntilReset() {
   const now = new Date();
   return Math.ceil((new Date(now.getFullYear(), now.getMonth() + 1, 1) - now) / 86400000);
 }
 
 let currentScenario = 'bronze';
+let activeTab = 'bronze';
 let selectedCategory = 'All';
 
+/* ─── Tier status banner ─── */
 function renderTierStatus(points) {
   const tier = getTier(points);
   const next = getNextTier(tier);
@@ -631,8 +515,7 @@ function renderTierStatus(points) {
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
         Resets in ${days} days
       </span>
-    </div>
-  `;
+    </div>`;
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -642,57 +525,30 @@ function renderTierStatus(points) {
   });
 }
 
-function renderTierPerks(points) {
-  const tier = getTier(points);
-  const next = getNextTier(tier);
-  const tierIdx = TIERS.indexOf(tier);
-  const unlockedTiers = TIERS.slice(0, tierIdx + 1);
-  const unlocked = TIER_PERKS.filter(p => unlockedTiers.includes(p.tier));
-  const nextPerks = next ? TIER_PERKS.filter(p => p.tier === next) : [];
-  const ptsToNext = next ? TIER_THRESHOLDS[next] - points : 0;
-
-  let html = `
-    <div class="tier-perks__section">
-      <h3 class="tier-perks__heading">Your perks</h3>
-      <p class="tier-perks__subtext">These perks are unlocked at your current tier.</p>
-      <div class="tier-perks__grid">
-        ${unlocked.map(p => renderTierPerkCard(p, false)).join('')}
-      </div>
-    </div>
-  `;
-
-  if (nextPerks.length > 0 && next) {
-    html += `
-      <div class="tier-perks__section">
-        <h3 class="tier-perks__heading">Unlock with ${tierLabel(next)}</h3>
-        <p class="tier-perks__subtext">Earn ${ptsToNext} more points to unlock these perks.</p>
-        <div class="tier-perks__grid">
-          ${nextPerks.map(p => renderTierPerkCard(p, true)).join('')}
-        </div>
-      </div>
-    `;
-  }
-
-  document.getElementById('tierPerks').innerHTML = html;
+/* ─── Tier tabs ─── */
+function renderTierTabs() {
+  document.getElementById('tierTabs').innerHTML = TIERS.map(t =>
+    `<button class="tier-tab ${activeTab === t ? 'tier-tab--active' : ''}" onclick="setActiveTab('${t}')">
+      <span class="tier-tab__dot" style="background:${TIER_DOT_COLORS[t]}"></span>
+      ${tierLabel(t)}
+    </button>`
+  ).join('');
 }
 
-function renderTierPerkCard(perk, locked) {
-  return `
-    <div class="tier-perk-card ${locked ? 'tier-perk-card--locked' : ''}">
-      <div class="tier-perk-card__icon">${perk.icon}</div>
-      <div class="tier-perk-card__body">
-        <span class="tier-perk-card__name">${perk.name}</span>
-        <span class="tier-perk-card__detail">${perk.detail}</span>
-      </div>
-      ${locked
-        ? `<div class="tier-perk-card__lock"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>`
-        : `<div class="tier-perk-card__check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>`}
-    </div>
-  `;
+function setActiveTab(tier) {
+  activeTab = tier;
+  selectedCategory = 'All';
+  renderTierTabs();
+  renderCategories();
+  renderPerksGrid();
 }
 
+/* ─── Category filters ─── */
 function renderCategories() {
-  document.getElementById('categoryFilters').innerHTML = CATEGORIES.map(c =>
+  const perksForTab = PERKS.filter(p => p.tier === activeTab);
+  const availableCats = ['All', ...new Set(perksForTab.map(p => p.category))];
+
+  document.getElementById('categoryFilters').innerHTML = availableCats.map(c =>
     `<button class="category-btn ${c === selectedCategory ? 'category-btn--active' : ''}" onclick="selectCategory('${c}')">${c}</button>`
   ).join('');
 }
@@ -700,26 +556,66 @@ function renderCategories() {
 function selectCategory(cat) {
   selectedCategory = cat;
   renderCategories();
+  renderPerksGrid();
 }
 
-function renderCmsPerks() {
-  document.getElementById('perksGrid').innerHTML = CMS_PERKS.map(p => `
-    <div class="perk-card">
-      <div class="perk-card__img" style="background:${p.bg}; display:flex; align-items:center; justify-content:center; color:${p.color}; font-size:15px; font-weight:700; padding:20px; text-align:center; line-height:1.3;">
-        ${p.title}
-      </div>
-      <div class="perk-card__body">
-        <span class="perk-card__title">${p.title}</span>
-      </div>
-    </div>
-  `).join('');
+/* ─── Perks grid ─── */
+function renderPerksGrid() {
+  const points = SCENARIOS[currentScenario].points;
+  const riderTier = getTier(points);
+  const riderTierIdx = TIERS.indexOf(riderTier);
+  const viewingTierIdx = TIERS.indexOf(activeTab);
+  const isUnlocked = viewingTierIdx <= riderTierIdx;
+
+  let perks = PERKS.filter(p => p.tier === activeTab);
+  if (selectedCategory !== 'All') {
+    perks = perks.filter(p => p.category === selectedCategory);
+  }
+
+  const grid = document.getElementById('perksGrid');
+
+  if (perks.length === 0) {
+    grid.className = 'perks-grid perks-grid--empty';
+    grid.innerHTML = '<p>No perks in this category yet.</p>';
+    return;
+  }
+
+  grid.className = 'perks-grid';
+  grid.innerHTML = perks.map(p => {
+    const locked = !isUnlocked;
+    return `
+      <div class="perk-card ${locked ? 'perk-card--locked' : ''}">
+        <div class="perk-card__img" style="background:${p.bg}; color:${p.color};">
+          ${p.name}
+          ${locked
+            ? `<span class="perk-card__tier-label perk-card__tier-label--${p.tier}">${tierLabel(p.tier)}</span>
+               <span class="perk-card__badge perk-card__badge--lock">
+                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+               </span>`
+            : `<span class="perk-card__badge">
+                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+               </span>`}
+        </div>
+        <div class="perk-card__body">
+          <span class="perk-card__title">${p.name}</span>
+          <span class="perk-card__subtitle">${p.subtitle}</span>
+        </div>
+      </div>`;
+  }).join('');
 }
 
+/* ─── Scenario switcher ─── */
 function setScenario(scenario) {
   currentScenario = scenario;
   const s = SCENARIOS[scenario];
+  const tier = getTier(s.points);
+  activeTab = tier;
+  selectedCategory = 'All';
+
   renderTierStatus(s.points);
-  renderTierPerks(s.points);
+  renderTierTabs();
+  renderCategories();
+  renderPerksGrid();
 
   document.querySelectorAll('.demo-switcher__btn').forEach(btn => {
     btn.classList.toggle('demo-switcher__btn--active',
@@ -728,8 +624,6 @@ function setScenario(scenario) {
 }
 
 // Init
-renderCategories();
-renderCmsPerks();
 setScenario('bronze');
 </script>
 </body>
