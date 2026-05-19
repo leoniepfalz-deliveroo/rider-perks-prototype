@@ -544,8 +544,13 @@ function setActiveTab(tier) {
 }
 
 /* ─── Category filters ─── */
+function getPerksForTab(tier) {
+  const tierIdx = TIERS.indexOf(tier);
+  return PERKS.filter(p => TIERS.indexOf(p.tier) <= tierIdx);
+}
+
 function renderCategories() {
-  const perksForTab = PERKS.filter(p => p.tier === activeTab);
+  const perksForTab = getPerksForTab(activeTab);
   const availableCats = ['All', ...new Set(perksForTab.map(p => p.category))];
 
   document.getElementById('categoryFilters').innerHTML = availableCats.map(c =>
@@ -565,9 +570,8 @@ function renderPerksGrid() {
   const riderTier = getTier(points);
   const riderTierIdx = TIERS.indexOf(riderTier);
   const viewingTierIdx = TIERS.indexOf(activeTab);
-  const isUnlocked = viewingTierIdx <= riderTierIdx;
 
-  let perks = PERKS.filter(p => p.tier === activeTab);
+  let perks = getPerksForTab(activeTab);
   if (selectedCategory !== 'All') {
     perks = perks.filter(p => p.category === selectedCategory);
   }
@@ -582,7 +586,7 @@ function renderPerksGrid() {
 
   grid.className = 'perks-grid';
   grid.innerHTML = perks.map(p => {
-    const locked = !isUnlocked;
+    const locked = TIERS.indexOf(p.tier) > riderTierIdx;
     return `
       <div class="perk-card ${locked ? 'perk-card--locked' : ''}">
         <div class="perk-card__img" style="background:${p.bg}; color:${p.color};">
