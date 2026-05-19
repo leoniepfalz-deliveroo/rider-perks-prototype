@@ -685,10 +685,10 @@
 <div class="demo-switcher">
   <div class="demo-switcher__label">Demo: Switch rider tier</div>
   <div class="demo-switcher__buttons">
-    <button class="demo-switcher__btn" onclick="setScenario('new')">New</button>
-    <button class="demo-switcher__btn" onclick="setScenario('bronze')">Bronze</button>
-    <button class="demo-switcher__btn" onclick="setScenario('silver')">Silver</button>
-    <button class="demo-switcher__btn" onclick="setScenario('gold')">Gold</button>
+    <button class="demo-switcher__btn" data-scenario="new" onclick="setScenario('new')">Starter</button>
+    <button class="demo-switcher__btn" data-scenario="bronze" onclick="setScenario('bronze')">Active</button>
+    <button class="demo-switcher__btn" data-scenario="silver" onclick="setScenario('silver')">Pro</button>
+    <button class="demo-switcher__btn" data-scenario="gold" onclick="setScenario('gold')">Advanced</button>
   </div>
 </div>
 
@@ -765,7 +765,7 @@ const PERKS = [
   { id: 'dispatch',         name: 'Dispatch Priority',       subtitle: 'Priority order assignment during peak hours',  tier: 'gold',   category: 'Deals',     bg: '#E84855', color: '#fff',
     description: 'During peak hours, Gold riders receive priority order assignment \u2014 meaning shorter waits between deliveries and more earning potential.',
     type: 'info', market: 'UK' },
-  { id: 'nero',             name: 'Caff\u00e8 Nero Rewards', subtitle: 'Free hot drink every week with Gold',          tier: 'gold',   category: 'Food',      bg: '#1B3A4B', color: '#fff',
+  { id: 'nero',             name: 'Caff\u00e8 Nero Rewards', subtitle: 'Free hot drink every week with Advanced',          tier: 'gold',   category: 'Food',      bg: '#1B3A4B', color: '#fff',
     description: 'Enjoy a free hot drink every week at any Caff\u00e8 Nero location. Simply show your Gold rider code.',
     code: 'ROONERO', instructions: 'Show this code to the barista when ordering.', type: 'coupon', market: 'UK' },
 ];
@@ -785,7 +785,8 @@ function getTier(points) {
   return 'base';
 }
 function tierLabel(t) {
-  return t === 'base' ? 'Base' : t.charAt(0).toUpperCase() + t.slice(1);
+  const labels = { base: 'Starter', bronze: 'Active', silver: 'Pro', gold: 'Advanced' };
+  return labels[t] || t;
 }
 function getNextTier(tier) {
   const i = TIERS.indexOf(tier);
@@ -949,7 +950,7 @@ function setScenario(scenario) {
 
   document.querySelectorAll('.demo-switcher__btn').forEach(btn => {
     btn.classList.toggle('demo-switcher__btn--active',
-      btn.textContent.toLowerCase() === scenario);
+      btn.dataset.scenario === scenario);
   });
 }
 
