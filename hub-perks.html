@@ -360,26 +360,6 @@
     line-height: 1.4;
   }
 
-  /* ===== PERK OF THE MONTH (featured card) ===== */
-  .perk-card--featured {
-    border: 2px dashed var(--roo-teal);
-    box-shadow: none;
-    border-radius: var(--roo-radius);
-    margin-bottom: 8px;
-  }
-  .perk-card--featured:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-  .perk-card--featured .perk-card__img {
-    aspect-ratio: 16 / 9;
-  }
-  .perk-card--featured .perk-card__body {
-    padding: 12px 16px 16px;
-    text-align: center;
-  }
-  .perk-card--featured .perk-card__title {
-    font-size: 15px;
-    margin-top: 0;
-  }
-
   /* ===== TIER BADGE ON LOCKED CARDS ===== */
   .perk-card__tier-label {
     position: absolute;
@@ -678,11 +658,11 @@
 
   <h1 class="page-title">Perks</h1>
 
-  <!-- ===== DEAL OF THE MONTH ===== -->
-  <div id="dealOfMonth"></div>
-
   <!-- 1. Tier overview -->
   <div class="tier-status" id="tierStatus"></div>
+
+  <!-- ===== DEAL OF THE MONTH ===== -->
+  <div id="dealOfMonth"></div>
 
   <!-- 2. Your perks (tabs + category filters + grid) -->
   <h2 class="section-heading">Your perks</h2>
@@ -980,13 +960,16 @@ function setScenario(scenario) {
 function renderDealOfMonth() {
   const d = DEAL_OF_MONTH;
   document.getElementById('dealOfMonth').innerHTML = `
-    <h2 class="section-heading">Perk of the month</h2>
-    <div class="perk-card perk-card--featured" onclick="openDealModal()" style="cursor:pointer;">
-      <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
-        ${d.name}
-      </div>
-      <div class="perk-card__body">
-        <span class="perk-card__title">${d.subtitle}</span>
+    <h2 class="section-heading">Deal of the month</h2>
+    <div class="perks-grid" style="margin-bottom:28px;">
+      <div class="perk-card" onclick="openDealModal()" style="cursor:pointer;">
+        <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
+          ${d.name}
+        </div>
+        <div class="perk-card__body">
+          <span class="perk-card__title">${d.name}</span>
+          <span class="perk-card__subtitle">${d.subtitle}</span>
+        </div>
       </div>
     </div>`;
 }
