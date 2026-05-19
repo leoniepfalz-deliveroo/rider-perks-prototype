@@ -360,6 +360,36 @@
     line-height: 1.4;
   }
 
+  /* ===== DEAL OF THE MONTH STARBURST ===== */
+  .perk-card__starburst {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 56px;
+    height: 56px;
+    z-index: 2;
+  }
+  .perk-card__starburst svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.2));
+  }
+  .perk-card__starburst-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+    color: var(--roo-white);
+    text-align: center;
+    line-height: 1.1;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    pointer-events: none;
+  }
+
   /* ===== TIER BADGE ON LOCKED CARDS ===== */
   .perk-card__tier-label {
     position: absolute;
@@ -658,9 +688,6 @@
   <!-- 1. Tier overview -->
   <div class="tier-status" id="tierStatus"></div>
 
-  <!-- ===== DEAL OF THE MONTH ===== -->
-  <div id="dealOfMonth"></div>
-
   <!-- 2. Your perks (tabs + category filters + grid) -->
   <h2 class="section-heading">Your perks</h2>
   <div class="tier-tabs" id="tierTabs"></div>
@@ -912,7 +939,32 @@ function renderPerksGrid() {
   }
 
   grid.className = 'perks-grid';
-  grid.innerHTML = perks.map(p => {
+
+  const starburstSvg = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,0 59,15 75,3 71,20 90,17 78,31 97,37 81,44 95,57 76,55 82,73 65,63 62,82 50,69 38,82 35,63 18,73 24,55 5,57 19,44 3,37 22,31 10,17 29,20 25,3 41,15" fill="#00CCBC"/></svg>`;
+
+  let dealCardHtml = '';
+  if (activeTab === riderTier && selectedCategory === 'All') {
+    const d = DEAL_OF_MONTH;
+    dealCardHtml = `
+      <div class="perk-card" onclick="openDealModal()" style="cursor:pointer;">
+        <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
+          ${d.name}
+          <span class="perk-card__starburst">
+            ${starburstSvg}
+            <span class="perk-card__starburst-text">Deal of<br>the month</span>
+          </span>
+          <span class="perk-card__badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </span>
+        </div>
+        <div class="perk-card__body">
+          <span class="perk-card__title">${d.name}</span>
+          <span class="perk-card__subtitle">${d.subtitle}</span>
+        </div>
+      </div>`;
+  }
+
+  grid.innerHTML = dealCardHtml + perks.map(p => {
     const locked = TIERS.indexOf(p.tier) > riderTierIdx;
     return `
       <div class="perk-card ${locked ? 'perk-card--locked' : ''}" onclick="openPerkModal('${p.id}')">
@@ -954,23 +1006,6 @@ function setScenario(scenario) {
   });
 }
 
-/* ─── Deal of the Month ─── */
-function renderDealOfMonth() {
-  const d = DEAL_OF_MONTH;
-  document.getElementById('dealOfMonth').innerHTML = `
-    <h2 class="section-heading">Deal of the month</h2>
-    <div class="perks-grid" style="margin-bottom:28px;">
-      <div class="perk-card" onclick="openDealModal()" style="cursor:pointer;">
-        <div class="perk-card__img" style="background:${d.bg}; color:${d.color};">
-          ${d.name}
-        </div>
-        <div class="perk-card__body">
-          <span class="perk-card__title">${d.name}</span>
-          <span class="perk-card__subtitle">${d.subtitle}</span>
-        </div>
-      </div>
-    </div>`;
-}
 
 function openDealModal() {
   const d = DEAL_OF_MONTH;
@@ -1117,7 +1152,6 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Init
-renderDealOfMonth();
 setScenario('bronze');
 </script>
 </body>
